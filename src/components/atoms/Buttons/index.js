@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 
 function Buttons(props) {
 
@@ -13,7 +14,11 @@ function Buttons(props) {
         return (
             <span className={props.className} style={props.style}>
                 {props.isLoading ? (
-                    <span>Loading ...</span>
+                    <div className='flex justify-center items-center space-x-1'>
+                        <FaSpinner className='animate-spin ' />
+                        <span>Loading...</span>
+                    </div>
+
                 ) : (props.children)}
             </span>
         )

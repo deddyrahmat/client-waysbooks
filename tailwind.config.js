@@ -9,6 +9,11 @@ module.exports = {
         'montserrat': ['"Montserrat"', 'sans-serif'],
         'tinos': ['"Tinos"', 'serif'],
       },
+      screens: {
+        xs: "360px", //double xtra small
+        xxl: "1440px",
+        '2xl' : "1440px"
+      },
     },
   },
   plugins: [],
