@@ -33,4 +33,14 @@
     height: 345px;
     object-fit: cover;
   }
+
+  .truncate-3 {
+    text-overflow:ellipsis;
+    overflow:hidden;
+    /* // Addition lines for 3 line or multiline ellipsis */
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    display: -webkit-box !important;
+  }
   
