@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import Buttons from 'components/atoms/Buttons'
 import { MdMenu, MdClose } from "react-icons/md";
+import Login from 'components/molecules/Login';
 
 function Navbar() {
   const [nav, setNav] = useState(false);
@@ -11,15 +12,16 @@ function Navbar() {
 
   return (
     <nav >
+      <Login />
         <div className="xs:container xxl:container mx-auto flex justify-between items-center pt-4 lg:pt-10 px-6">
             <Buttons type='link' href='' className='w-full z-10'>
               <img src="assets/logo/logo.jpg" alt="logo" className='w-max-[111px]' />
             </Buttons>
             
             <div className="hidden lg:flex justify-center items-center space-x-4">
-                <Buttons className='border-2 border-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10' type='link' href=''>Login</Buttons>
+                <Buttons className='border-2 border-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10'>Login</Buttons>
 
-                <Buttons className='border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10' type='link' href=''>Register</Buttons>
+                <Buttons className='border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10'>Register</Buttons>
             </div>
 
             <MdMenu className='flex lg:hidden z-10' size={40} onClick={toggleNav} />
@@ -30,8 +32,8 @@ function Navbar() {
               <MdClose size={40} onClick={toggleNav} />
             </div>
 
-              <Buttons className='block border-2 border-[#393939] w-full text-center rounded-sm py-1.5 hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10' type='link' href=''>Login</Buttons>
-              <Buttons className='mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10' type='link' href=''>Register</Buttons>
+              <Buttons className='block border-2 border-[#393939] w-full text-center rounded-sm py-1.5 hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10'>Login</Buttons>
+              <Buttons className='mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10'>Register</Buttons>
           </div>
               
         </div>
