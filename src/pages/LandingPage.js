@@ -1,10 +1,12 @@
-import Navbar from 'components/molecules/Navbar'
+import Header from 'components/organisms/Header'
+import ListBooks from 'components/organisms/ListBooks'
 import React from 'react'
 
 function LandingPage() {
   return (
-    <div>
-        <Navbar />
+    <div className='bg-[#F3F3F3]'>
+        <Header />
+        <ListBooks />
     </div>
   )
 }
