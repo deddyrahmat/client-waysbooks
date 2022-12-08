@@ -15,7 +15,7 @@ function Hero() {
     return (
         <>
             <div className="xxl:container mx-auto mt-28 mb-20">
-                <h1 className="font-tinos text-5xl text-center mx-auto max-w-[780px]">
+                <h1 className="font-tinos text-4xl lg:text-5xl text-center mx-auto max-w-[780px]">
                     With us, you can shop online & help save your high street at
                     the same time
                 </h1>
