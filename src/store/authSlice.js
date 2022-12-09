@@ -6,6 +6,8 @@ const authSlice = createSlice({
         popup : false,
         login : false,
         register : false,
+        statusAuth : true,
+        totalCart : 0
     },
     reducers : {
         authStore : (state, action) => {
