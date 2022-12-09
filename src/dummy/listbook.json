@@ -1,0 +1,45 @@
+{
+    "status" : 1,
+    "data" : [
+        {
+            "id" : "1",
+            "slug" : "sebuah-seni-bersikap-bodoh-amat",
+            "title" : "Sebuah Seni Bersikap Bodoh Amat",
+            "image" : "https://images.unsplash.com/photo-1670139015746-832eaa4460c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            "author" : "Mark Manson",
+            "price" : 59000
+        },
+        {
+            "id" : "2",
+            "slug" : "perjalanan-menuju-kesuksesan",
+            "title" : "Perjalanan Menuju Kesuksesan",
+            "image" : "https://images.unsplash.com/photo-1670477250773-a7e1c2354d25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+            "author" : "Mark Manson",
+            "price" : 80000
+        },
+        {
+            "id" : "3",
+            "slug" : "sebuah-seni-bersikap-bodoh-amat",
+            "title" : "Sebuah Seni Bersikap Bodoh Amat",
+            "image" : "https://images.unsplash.com/photo-1670477250773-a7e1c2354d25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+            "author" : "Mark Manson",
+            "price" : 90000
+        },
+        {
+            "id" : "4",
+            "slug" : "kerangka-hidup",
+            "title" : "Kerangka Hidup",
+            "image" : "https://images.unsplash.com/photo-1670516537499-e3aafaac25b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
+            "author" : "Mark Manson",
+            "price" : 80000
+        },
+        {
+            "id" : "5",
+            "slug" : "lorem-ipsum-dolor-imet-apa-lagi-ajaku-gak-atau-ja-ksdlfj",
+            "title" : "lorem ipsum dolor imet apa lagi ajaku gak atau ja ksdfjks",
+            "image" : "https://images.unsplash.com/photo-1670139015746-832eaa4460c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            "author" : "Mark Manson",
+            "price" : 75000
+        }
+    ]
+}

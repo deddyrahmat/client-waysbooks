@@ -1,7 +1,7 @@
 import React from "react";
 
 function Dropdown({funDropdown}) {
-    console.log('funDropdown', funDropdown)
+    // console.log('funDropdown', funDropdown)
     return (
         <div className={`${funDropdown ? 'block' : 'hidden'} absolute right-0 w-40 mt-2 py-2 bg-white border rounded shadow-xl`}>
             <a
