@@ -34,7 +34,7 @@ function Books({data}) {
     }
 
   return (
-    <Buttons href={`${statusAuth ? data.slug : ''}`} onClick={() => conditonLogin()} type="link">
+    <Buttons href={`${statusAuth ? 'books/'+data.slug : ''}`} onClick={() => conditonLogin()} type="link">
       <div className="bg-white rounded-md p-3">
         <div className="h-[270px] w-full bg-white mb-3">
           <img src={data.image} alt="cover-book" className='w-full h-full object-contain object-center' />

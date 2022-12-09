@@ -1,19 +1,13 @@
-header {
-    background-color: #fff;
-    height: 652px;
-    position: relative;
-}
-
-.img-illustration-1{
+.img-illustration-3{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1;
 }
-.img-illustration-2{
+.img-illustration-4{
     position: absolute;
     top: -45%;
     right: 0;
-    z-index: 0;
+    z-index: -1;
     transform: rotate(180deg);
 }

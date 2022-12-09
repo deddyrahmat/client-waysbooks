@@ -1,0 +1,19 @@
+.landing {
+    background-color: #fff;
+    height: 652px;
+    position: relative;
+}
+
+.img-illustration-1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+.img-illustration-2{
+    position: absolute;
+    top: -45%;
+    right: 0;
+    z-index: 0;
+    transform: rotate(180deg);
+}

@@ -1,16 +1,17 @@
-import Navbar  from 'components/molecules/Navbar';
-import Hero from 'components/molecules/Hero'
 import React from 'react'
 
+// component
+import Navbar  from 'components/molecules/Navbar';
+
+// style
 import './index.css';
 
 function Header() {
   return (
-    <header>
+    <header className='relative'>
+      <img src="/assets/images/illustration.png" alt="illustration" className='img-illustration-3' />
+      <img src="/assets/images/illustration.png" alt="illustration" className='img-illustration-4' />
         <Navbar />
-        <Hero />
-      <img src="assets/images/illustration.png" alt="illustration" className='img-illustration-1' />
-      <img src="assets/images/illustration.png" alt="illustration" className='img-illustration-2' />
     </header>
   )
 }

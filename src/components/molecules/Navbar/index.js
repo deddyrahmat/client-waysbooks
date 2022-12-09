@@ -12,7 +12,8 @@ import Register from "components/molecules/Register";
 import Dropdown from "components/atoms/Dropdown";
 
 function Navbar() {
-    const { statusAuth, totalCart } = useSelector((state) => state.authModal);
+    const { statusAuth } = useSelector((state) => state.authModal);
+    const {cart} = useSelector((state) => state.cartReducer);
 
     // state show menu in mobile version
     const [nav, setNav] = useState(false);
@@ -54,9 +55,9 @@ function Navbar() {
             <Login />
             <Register />
             <div className="xs:container xxl:container mx-auto flex justify-between items-center pt-4 lg:pt-10 px-6">
-                <Buttons type="link" href="" className="w-full z-10">
+                <Buttons type="link" href="/" className="w-full z-10">
                     <img
-                        src="assets/logo/logo.jpg"
+                        src="/assets/logo/logo.png"
                         alt="logo"
                         className="w-max-[111px]"
                     />
@@ -68,9 +69,9 @@ function Navbar() {
                             <div className="relative mr-5 z-10 ">
                                 <MdShoppingCart size={36} className="cursor-pointer" />
                                 {
-                                    totalCart > 0 && (
-                                        <div className="absolute top-[-10px] right-[-3px] h-5 w-5 flex justify-center items-center text-xs bg-[#F13F3F] rounded-full">
-                                            {totalCart}
+                                    cart.length > 0 && (
+                                        <div className="absolute top-[-10px] right-[-3px] h-5 w-5 flex justify-center items-center text-xs text-white bg-[#F13F3F] rounded-full">
+                                            {cart.length}
                                         </div>
                                     )
                                 }
