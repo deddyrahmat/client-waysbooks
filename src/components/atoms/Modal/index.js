@@ -13,6 +13,9 @@ function Modal(props) {
                 register: false,
             })
         );
+        if (props.handleProps) {
+            props.handleProps();
+        }
     };
     return (
         <>

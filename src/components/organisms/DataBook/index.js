@@ -23,6 +23,7 @@ function DataBook({data}) {
                     id : data.id,
                     title : data.title,
                     image : data.image,
+                    author : data.author,
                     publication : data.publication,
                     price : data.price,
                 }

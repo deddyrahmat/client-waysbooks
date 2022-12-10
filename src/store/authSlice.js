@@ -3,11 +3,9 @@ import {createSlice} from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name : "authModal",
     initialState : {
-        popup : false,
         login : false,
         register : false,
-        statusAuth : true,
-        // totalCart : 0
+        statusAuth : true
     },
     reducers : {
         authStore : (state, action) => {

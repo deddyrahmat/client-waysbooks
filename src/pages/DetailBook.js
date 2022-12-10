@@ -14,10 +14,10 @@ function DetailBook() {
 
   const findBook = dataBooks.data.find(book => book.slug === params.slug);
   return (
-    <div>
+    <>
         <Header />
         <DataBook data={findBook} />
-    </div>
+    </>
   )
 }
 

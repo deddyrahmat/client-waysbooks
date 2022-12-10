@@ -23,7 +23,7 @@ function Login() {
     };
     return (
         <>
-            <Modal open={login ? true : false}>
+            <Modal open={login}>
                 <h6 className="font-tinos font-bold text-4xl mb-9">Login</h6>
                 <input
                     type="email"

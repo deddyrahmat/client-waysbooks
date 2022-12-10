@@ -23,7 +23,7 @@ function Register() {
     };
     return (
         <>
-            <Modal open={register ? true : false}>
+            <Modal open={register}>
                 <h6 className="font-tinos font-bold text-4xl mb-9">Register</h6>
                 <input
                     type="email"
