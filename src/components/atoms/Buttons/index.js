@@ -38,7 +38,7 @@ function Buttons(props) {
 
 
   return (
-    <button className={props.className} style={props.style} onClick={onClick} >{props.children}</button>
+    <button type={props.typeButton} className={props.className} style={props.style} onClick={onClick} >{props.children}</button>
   )
 }
 
@@ -46,6 +46,7 @@ export default Buttons
 
 Buttons.propTypes = {
     type : propTypes.oneOf(['button','link']),
+    typeButton : propTypes.oneOf(['button','submit','reset']),
     onClick : propTypes.func,
     isExternal : propTypes.bool,
     href : propTypes.string,
