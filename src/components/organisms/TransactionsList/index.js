@@ -59,7 +59,7 @@ function TransactionsList() {
   return (
     <div className="mt-20">
         <div className="xs:container xxl:container mx-auto px-10 pb-14">
-            <h6 className='font-bold font-tinos text-2xl mb-10'>My Cart</h6>
+            <h6 className='font-bold text-4xl font-tinos mb-10'>My Cart</h6>
             <p className='text-lg mb-3'>Review Your Order</p>
 
             <div className="flex flex-col lg:flex-row lg:space-x-10 items-start">

@@ -10,7 +10,7 @@ import dataBooks  from '../dummy/listbook.json'
 function LandingPage() {
   return (
     <div className='bg-[#F3F3F3] pb-9'>
-        <HeaderLanding />
+        <HeaderLanding dataBooks={dataBooks} />
         <ListBooks dataBooks={dataBooks} />
     </div>
   )

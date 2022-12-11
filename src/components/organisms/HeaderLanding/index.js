@@ -4,15 +4,15 @@ import React from 'react'
 
 import './index.css';
 
-function Header() {
+function HeaderLanding({dataBooks}) {
   return (
     <header className='landing'>
         <Navbar />
-        <Hero />
+        <Hero dataBooks={dataBooks} />
       <img src="/assets/images/illustration.png" alt="illustration" className='img-illustration-1' />
       <img src="/assets/images/illustration.png" alt="illustration" className='img-illustration-2' />
     </header>
   )
 }
 
-export default Header
+export default HeaderLanding

@@ -1,6 +1,7 @@
 import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,7 +12,39 @@ import "./index.css";
 import { Autoplay } from "swiper";
 import Buttons from "components/atoms/Buttons";
 
-function Hero() {
+// state global
+import { cartStore } from "store/cartSlice";
+import { authStore } from "store/authSlice";
+
+function Hero({dataBooks}) {
+    const { statusAuth } = useSelector((state) => state.authModal);
+    const dispatch = useDispatch();
+
+
+    const handleAddCart = (book) => {
+        if (statusAuth) {
+            dispatch(
+                cartStore({
+                    cart: {
+                        id : book.id,
+                        title : book.title,
+                        image : book.image,
+                        author : book.author,
+                        publication : book.publication,
+                        price : book.price,
+                    }
+                })
+            );
+        }else {
+            dispatch(
+                authStore({
+                    login: true,
+                    register: false,
+                })
+            );
+        }
+    };
+
     return (
         <>
             <div className="xxl:container mx-auto mt-28 mb-20">
@@ -45,183 +78,40 @@ function Hero() {
                     modules={[Autoplay]}
                     className="mySwiper"
                 >
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Quae reprehenderit beatae nam
-                                odit obcaecati harum, sapiente error corporis
-                                impedit ratione.
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Sebuah Seni Bersikap Bodoh Amat
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Sebuah Seni Bersikap Bodoh Amat
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1670364272583-c650374bf379?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Sebuah Seni Bersikap Bodoh Amat
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Sebuah Seni Bersikap Bodoh Amat
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img
-                            src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            alt="image-book"
-                        />
-                        <div className="px-7 py-4 bg-white text-left">
-                            <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                Sebuah Seni Bersikap Bodoh Amat
-                            </h6>
-                            <p className="italic text-sm text-[#929292]">
-                                By. Mark Manson
-                            </p>
-                            <p className="text-sm mt-4 mb-9 truncate-3">
-                                Dua insan manusia harus terjebak dalam dilema
-                                cinta yang memaksa salah satu dari mereka pergi
-                                mencari rezeki
-                            </p>
-                            <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                Rp. 59.000
-                            </p>
-                            <Buttons
-                                className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
-                                type="link"
-                                href=""
-                            >
-                                Add To Cart
-                            </Buttons>
-                        </div>
-                    </SwiperSlide>
+                    {
+                        dataBooks?.data?.length > 0 && (
+                        dataBooks?.data?.map(book => (
+                            
+                            <SwiperSlide key={book.id} >
+                                <img
+                                    src={book.image}
+                                    alt="image-book"
+                                />
+                                <div className="px-7 py-4 bg-white text-left">
+                                    <h6 className="text-2xl font-bold font-tinos truncate-3">
+                                        {book.title}
+                                    </h6>
+                                    <p className="italic text-sm text-[#929292]">
+                                        {book.author}
+                                    </p>
+                                    <p className="text-sm mt-4 mb-9 truncate-3">
+                                        {book.short_desc}
+                                    </p>
+                                    <p className="text-[#44B300] font-bold text-lg mb-3.5">
+                                        {book.price}
+                                    </p>
+                                    <Buttons
+                                        className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
+                                        onClick={() => handleAddCart(book)}
+                                    >
+                                        Add To Cart
+                                    </Buttons>
+                                </div>
+                            </SwiperSlide>
+                        ))
+                        )
+                    }
+                    
                 </Swiper>
             </div>
         </>

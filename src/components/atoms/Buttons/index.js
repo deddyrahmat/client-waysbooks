@@ -27,7 +27,7 @@ function Buttons(props) {
     if (props.type === 'link') {
         if (props.isExternal) {
             return (
-                <a href={props.href} className={props.className} style={props.style} >{props.children}</a>
+                <a href={props.href} target={props.target} className={props.className} style={props.style} >{props.children}</a>
             )
         }else{
             return (
