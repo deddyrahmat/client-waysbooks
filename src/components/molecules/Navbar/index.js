@@ -12,7 +12,7 @@ import Register from "components/molecules/Register";
 import Dropdown from "components/atoms/Dropdown";
 
 function Navbar() {
-    const { statusAuth } = useSelector((state) => state.authModal);
+    const { statusAuth } = useSelector((state) => state.authReducer);
     const {cart} = useSelector((state) => state.cartReducer);
 
     // state show menu in mobile version

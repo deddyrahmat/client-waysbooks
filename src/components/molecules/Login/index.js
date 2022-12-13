@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 
 // component
@@ -14,10 +15,15 @@ import Input from "components/atoms/Form/Input";
 import MessageValidation from "utils/MessageValidation";
 
 // state global
-import { authStore } from "store/authSlice";
+import { authStore, authAccess } from "store/authSlice";
+
+// dummy data
+import usersLogin from '../../../dummy/users.json';
 
 function Login() {
-    const { login } = useSelector((state) => state.authModal);
+    const navigate = useNavigate();
+
+    const { login } = useSelector((state) => state.authReducer);
 
     const dispatch = useDispatch();
 
@@ -44,6 +50,35 @@ function Login() {
         email: "",
         password: "",
     };
+
+    const handleSubmit = (values) => {
+        // console.log('values', values)
+        const {email, password} = values;
+
+        if (usersLogin.data.email === email) {
+            console.log('user', usersLogin.data)
+            dispatch(
+                authAccess({
+                    loading: false,
+                    statusAuth: true,
+                })
+            );
+            dispatch(
+                authStore({
+                    login: false,
+                    register: false,
+                })
+            );
+            // cek role for redirect page where role user
+            if (usersLogin.data.role === "administrator") {
+                navigate("/admin");
+            }else{
+                navigate("/");
+            }
+        }
+        
+
+    }
     // validation form
 
     // show password
@@ -63,9 +98,7 @@ function Login() {
                 <Formik
                     initialValues={initForm}
                     validationSchema={formValidation}
-                    onSubmit={(values) => {
-                        console.log(values);
-                    }}
+                    onSubmit={(values) => handleSubmit(values)}
                 >
                     {(formik) => {
                         return (

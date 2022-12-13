@@ -16,7 +16,7 @@ import MessageValidation from "utils/MessageValidation";
 import { authStore } from "store/authSlice";
 
 function Register() {
-    const { register } = useSelector((state) => state.authModal);
+    const { register } = useSelector((state) => state.authReducer);
 
     const dispatch = useDispatch();
 

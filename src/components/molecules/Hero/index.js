@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useDispatch, useSelector } from "react-redux";
+import { Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,15 +10,21 @@ import "swiper/css";
 import "./index.css";
 
 // import required modules
-import { Autoplay } from "swiper";
 import Buttons from "components/atoms/Buttons";
+import Modal from 'components/atoms/Modal';
 
 // state global
 import { cartStore } from "store/cartSlice";
 import { authStore } from "store/authSlice";
 
 function Hero({dataBooks}) {
-    const { statusAuth } = useSelector((state) => state.authModal);
+    const [success, setSuccess] = useState(false);
+
+    const handleSuccess = () => {
+        setSuccess(!success);
+    }
+    
+    const { statusAuth } = useSelector((state) => state.authReducer);
     const dispatch = useDispatch();
 
 
@@ -35,6 +42,8 @@ function Hero({dataBooks}) {
                     }
                 })
             );
+
+            setSuccess(true);
         }else {
             dispatch(
                 authStore({
@@ -47,6 +56,9 @@ function Hero({dataBooks}) {
 
     return (
         <>
+            <Modal open={success} handleProps={() => handleSuccess()}>
+                <p className='text-2xl text-[#469F74]'>The product is successfully added to the cart</p>
+            </Modal>
             <div className="xxl:container mx-auto mt-28 mb-20">
                 <h1 className="font-tinos text-4xl lg:text-5xl text-center mx-auto max-w-[780px]">
                     With us, you can shop online & help save your high street at

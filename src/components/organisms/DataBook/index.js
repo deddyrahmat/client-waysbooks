@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import parse from 'html-react-parser';
 import { MdShoppingBasket } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 // component
 import Buttons from 'components/atoms/Buttons';
+import Modal from 'components/atoms/Modal';
 
 // utils
 import {rupiah} from '../../../utils/FormatCurrency';
@@ -13,6 +14,8 @@ import {rupiah} from '../../../utils/FormatCurrency';
 import { cartStore } from "store/cartSlice";
 
 function DataBook({data}) {
+
+  const [success, setSuccess] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -29,10 +32,19 @@ function DataBook({data}) {
                 }
             })
         );
+
+        setSuccess(true);
     };
+
+    const handleSuccess = () => {
+      setSuccess(!success);
+    }
 
   return (
     <>
+        <Modal open={success} handleProps={() => handleSuccess()}>
+          <p className='text-2xl text-[#469F74]'>The product is successfully added to the cart</p>
+        </Modal>
         <div className="max-w-[905px] mx-auto mt-12 px-3 grid grid-cols-1 lg:grid-cols-2 gap-8 justify-between items-start mb-10 lg:mb-20">
           <div className="h-[577px] w-full bg-white">
             <img src={data.image} alt="cover" className='rounded-lg h-full w-full object-cover object-center' />

@@ -16,7 +16,7 @@ import {rupiah} from '../../../utils/FormatCurrency';
 const CardBook = memo(
   ({children, data}) => {
     // console.log('data', data)
-    const { statusAuth } = useSelector((state) => state.authModal);
+    const { statusAuth } = useSelector((state) => state.authReducer);
   
     const dispatch = useDispatch();
   

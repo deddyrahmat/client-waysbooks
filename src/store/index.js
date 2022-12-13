@@ -4,7 +4,7 @@ import cartReducer from './cartSlice';
 
 export const store = configureStore({
     reducer : {
-        authModal : authReducer,
+        authReducer,
         cartReducer
     },
     devTools: process.env.NODE_ENV !== 'production',
