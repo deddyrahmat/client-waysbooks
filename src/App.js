@@ -4,7 +4,8 @@ import ProtectedRoute from 'components/atoms/ProtectedRoute';
 import DetailBook from "pages/DetailBook";
 import LandingPage from "pages/LandingPage";
 import Profile from "pages/Profile";
-import Transaction from "pages/Transaction";
+import Cart from "pages/Cart";
+import Transaction from 'pages/Transaction';
 
 function App() {
     return (
@@ -23,10 +24,10 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/transaction"
+                        path="/cart"
                         element={
                             <ProtectedRoute >
-                                <Transaction />
+                                <Cart />
                             </ProtectedRoute>
                         }
                     />
@@ -36,6 +37,15 @@ function App() {
                         element={
                             <ProtectedRoute >
                                 <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/admin/transaction"
+                        element={
+                            <ProtectedRoute >
+                                <Transaction />
                             </ProtectedRoute>
                         }
                     />

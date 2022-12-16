@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name : "authReducer",
     initialState : {
+        role : '',
         loading : true,
         login : false,
         register : false,
@@ -14,6 +15,7 @@ const authSlice = createSlice({
             state.register = action.payload.register;
         },
         authAccess : (state, action) => {
+            state.role = action.payload.role;
             state.loading = action.payload.loading;
             state.statusAuth = action.payload.statusAuth;
         }

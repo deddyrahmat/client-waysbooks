@@ -61,6 +61,7 @@ function Login() {
                 authAccess({
                     loading: false,
                     statusAuth: true,
+                    role: usersLogin.data.role,
                 })
             );
             dispatch(
@@ -71,7 +72,7 @@ function Login() {
             );
             // cek role for redirect page where role user
             if (usersLogin.data.role === "administrator") {
-                navigate("/admin");
+                navigate("/admin/transaction");
             }else{
                 navigate("/");
             }

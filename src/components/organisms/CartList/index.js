@@ -7,7 +7,7 @@ import { cartStore } from "store/cartSlice";
 import Buttons from 'components/atoms/Buttons';
 import Modal from 'components/atoms/Modal';
 
-function TransactionsList() {
+function CartList() {
 
   const [success, setSuccess] = useState(false);
 
@@ -149,4 +149,4 @@ function TransactionsList() {
   )
 }
 
-export default TransactionsList
+export default CartList
