@@ -12,7 +12,8 @@ import Modal from 'components/atoms/Modal';
 import {rupiah} from '../../../utils/FormatCurrency';
 
 // styling
-import './listTransaction.css'
+import './adminListBook.css'
+import Buttons from 'components/atoms/Buttons';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -44,7 +45,6 @@ function Table({ columns, data }) {
   )
 
   // Render the UI for your table
-  // console.log('canPreviousPage', canPreviousPage)
   return (
     <>
       {/* <pre>
@@ -62,8 +62,6 @@ function Table({ columns, data }) {
           )}
         </code>
       </pre> */}
-
-      
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
@@ -139,7 +137,7 @@ function Table({ columns, data }) {
   )
 }
 
-function ListTransaction({list}) {
+function AdminListBooks({list}) {
   moment.locale('id', idLocale);
 
 
@@ -263,7 +261,14 @@ function ListTransaction({list}) {
                 <img src={imageTransfer} alt="bukti transfer" className='object-cover object-center w-full h-full'></img>
               </div>
             </Modal>
-            <h6 className='font-bold text-xl sm:text-4xl mb-6 font-tinos'>Incoming Transaction</h6>
+            <h6 className='font-bold text-xl sm:text-4xl mb-6 font-tinos'>Data Books</h6>
+            <Buttons
+                className="border-2 border-[#393939] bg-[#393939] rounded py-1.5 px-2 w-full min-w-[100px] text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10 mb-5"
+                type="link"
+                href='/admin/add-book'
+            >
+                Add Book
+            </Buttons>
             <div className="overflow-scroll lg:overflow-auto">
                 <Table columns={columns} data={list} />
             </div>
@@ -271,4 +276,4 @@ function ListTransaction({list}) {
   )
 }
 
-export default ListTransaction
+export default AdminListBooks

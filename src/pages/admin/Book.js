@@ -3,9 +3,9 @@ import { faker } from '@faker-js/faker';
 
 // component
 import Header from 'components/organisms/Header'
-import ListTransaction from 'components/organisms/ListTransaction'
+import AdminListBooks from 'components/organisms/AdminListBooks';
 
-function Profile() {
+function Book() {
   const data = [];
   for (let item = 0; item < 100 ; item++) {
     data.push({
@@ -26,9 +26,9 @@ function Profile() {
   return (
     <>
         <Header />
-        <ListTransaction list={data} />
+        <AdminListBooks list={data} />
     </>
   )
 }
 
-export default Profile
+export default Book

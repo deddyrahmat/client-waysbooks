@@ -5,7 +5,9 @@ import DetailBook from "pages/DetailBook";
 import LandingPage from "pages/LandingPage";
 import Profile from "pages/Profile";
 import Cart from "pages/Cart";
-import Transaction from 'pages/Transaction';
+import Transaction from 'pages/admin/Transaction';
+import Book from 'pages/admin/Book';
+import AddBook from "pages/admin/AddBook";
 
 function App() {
     return (
@@ -46,6 +48,24 @@ function App() {
                         element={
                             <ProtectedRoute >
                                 <Transaction />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/admin/book"
+                        element={
+                            <ProtectedRoute >
+                                <Book />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/admin/add-book"
+                        element={
+                            <ProtectedRoute >
+                                <AddBook />
                             </ProtectedRoute>
                         }
                     />
