@@ -55,13 +55,15 @@ function Navbar() {
             <Login />
             <Register />
             <div className="xs:container xxl:container mx-auto flex justify-between items-center pt-4 lg:pt-10 px-6">
-                <Buttons type="link" href="/" className="w-full z-10">
-                    <img
-                        src="/assets/logo/logo.png"
-                        alt="logo"
-                        className="w-max-[111px]"
-                    />
-                </Buttons>
+                <div className="w-full">
+                    <Buttons type="link" href="/" className="block z-10 w-[111px]">
+                        <img
+                            src="/assets/logo/logo.png"
+                            alt="logo"
+                            className="w-max-[111px]"
+                        />
+                    </Buttons>
+                </div>
 
                 {/* versi desktop */}
                 {
