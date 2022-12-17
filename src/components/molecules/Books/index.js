@@ -65,7 +65,7 @@ function Books({data}) {
           {
             data.url ? (
               <Buttons type='link' href={data.url} isExternal target='_blank'
-                  className="block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10"
+                  className="block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10"
               >
                   Download
               </Buttons>

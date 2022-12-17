@@ -122,7 +122,7 @@ function Login() {
                             />
                             </div>
 
-                                <Buttons type="button" typeButton="submit" className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10">
+                                <Buttons type="button" typeButton="submit" className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10">
                                     Login
                                 </Buttons>
                             </Form>

@@ -65,7 +65,7 @@ function DataBook({data}) {
         <div className="max-w-[905px] mx-auto px-3">
           <h6 className='font-bold text-4xl mb-6'>About This Book</h6>
           {parse(data.detail)}
-          <Buttons className='float-right my-9 border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-36 min-w-[100px] text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 flex justify-center items-center space-x-3' onClick={() => handleAddCart()}>
+          <Buttons className='float-right my-9 border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-36 min-w-[100px] text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white flex justify-center items-center space-x-3' onClick={() => handleAddCart()}>
             <span>Add Cart</span>
             <MdShoppingBasket size={23} />
           </Buttons>

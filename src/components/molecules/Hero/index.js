@@ -16,6 +16,7 @@ import Modal from 'components/atoms/Modal';
 // state global
 import { cartStore } from "store/cartSlice";
 import { authStore } from "store/authSlice";
+import { rupiah } from "utils/FormatCurrency";
 
 function Hero({dataBooks}) {
     const [success, setSuccess] = useState(false);
@@ -110,10 +111,10 @@ function Hero({dataBooks}) {
                                         {book.short_desc}
                                     </p>
                                     <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                        {book.price}
+                                        {rupiah(book.price)}
                                     </p>
                                     <Buttons
-                                        className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500"
+                                        className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white"
                                         onClick={() => handleAddCart(book)}
                                     >
                                         Add To Cart
