@@ -8,6 +8,7 @@ import Cart from "pages/Cart";
 import Transaction from 'pages/admin/Transaction';
 import Book from 'pages/admin/Book';
 import AddBook from "pages/admin/AddBook";
+import EditProfile from "pages/EditProfile";
 
 function App() {
     return (
@@ -39,6 +40,15 @@ function App() {
                         element={
                             <ProtectedRoute >
                                 <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/profile/edit"
+                        element={
+                            <ProtectedRoute >
+                                <EditProfile />
                             </ProtectedRoute>
                         }
                     />

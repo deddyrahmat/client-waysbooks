@@ -15,7 +15,7 @@ import Input from "components/atoms/Form/Input";
 import MessageValidation from "utils/MessageValidation";
 
 // state global
-import { authStore, authAccess } from "store/authSlice";
+import { authStore, authAccess, authBiodata } from "store/authSlice";
 
 // dummy data
 import usersLogin from '../../../dummy/users.json';
@@ -56,7 +56,12 @@ function Login() {
         const {email, password} = values;
 
         if (usersLogin.data.email === email) {
-            console.log('user', usersLogin.data)
+            // console.log('user', usersLogin.data)
+            dispatch(
+                authBiodata({
+                    biodata: usersLogin.data,
+                })
+            );
             dispatch(
                 authAccess({
                     loading: false,

@@ -2,7 +2,8 @@ import React,{useState} from 'react'
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
-import { MdLibraryAdd, MdAttachFile } from "react-icons/md";
+import { MdModeEditOutline, MdAttachFile, MdKeyboardBackspace } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 // utils
 import MessageValidation from "utils/MessageValidation";
@@ -11,30 +12,66 @@ import Buttons from "components/atoms/Buttons";
 import Input from "components/atoms/Form/Input";
 import Textarea from 'components/atoms/Form/Textarea';
 import Modal from 'components/atoms/Modal';
+import Select from 'components/atoms/Form/Select';
 
 
 function EditUser() {
   const navigate = useNavigate();
 
+  const { biodata } = useSelector((state) => state.authReducer);
+
   // validation form
+  const dataGender = [
+    {
+      id: 1,
+      value: "male",
+      label: "Male",
+    },
+    {
+      id: 2,
+      value: "female",
+      label: "Female",
+    },
+  ];
+
   const formValidation = Yup.object().shape({
-    email: Yup.string()
+    fullname: Yup.string()
+        .min(3, MessageValidation.minChar(3))
+        .required(MessageValidation.required),
+    gender: Yup.string()
+        .required(MessageValidation.required)
+        .oneOf(["male", "female"]),
+    mail: Yup.string()
         .email(MessageValidation.formatEmail)
         .required(MessageValidation.required),
-    password: Yup.string()
-        .min(8, MessageValidation.minChar(8))
+    phone: Yup.string()
+        .min(10, MessageValidation.minChar(10))
+        .required(MessageValidation.required),
+    location: Yup.string()
+        .min(3, MessageValidation.minChar(3))
         .required(MessageValidation.required),
 });
 
 const initForm = {
-    email: "",
-    password: "",
+    fullname: "",
+    gender: "",
+    mail: "",
+    phone: "",
+    location: "",
 };
 
 const handleSubmit = (values) => {
     console.log('values', values)
     
 
+}
+
+const savedValues = {
+  fullname: biodata.fullname,
+  gender: biodata.gender,
+  mail: biodata.email,
+  phone: biodata.phone,
+  location: biodata.location,
 }
 // validation form
 
@@ -62,12 +99,14 @@ const handleImageTransaction = (e) => {
 
   return (
     <div className="container mx-auto my-10 px-5 sm:px-20">
-      <h6 className='font-bold text-xl sm:text-4xl mb-6 font-tinos'>Add Book</h6>
+      <h6 className='font-bold text-xl sm:text-4xl mb-6 font-tinos'>Edit Profile</h6>
 
         <Formik
-            initialValues={initForm}
+            initialValues={savedValues || initForm}
             validationSchema={formValidation}
             onSubmit={(values) => handleSubmit(values)}
+            // untuk bisa fitur edit, tambahkan field diabawah
+            enableReinitialize
         >
             {(formik) => {
                 return (
@@ -75,49 +114,48 @@ const handleImageTransaction = (e) => {
                       <div className="mb-2">
                         <Input
                             type="text"
-                            name="title"
-                            placeholder="Title"
+                            name="fullname"
+                            placeholder="Fullname"
+                            propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
+                        />
+                      </div>
+                      <div className="mb-2">
+                        <Input
+                            type="email"
+                            name="mail"
+                            placeholder="Email"
+                            propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
+                        />
+                      </div>
+                      <div className="mb-2">
+                        <Select
+                          name="gender"
+                          label="gender"
+                          options={dataGender}
+                          className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600 "
+                        />
+                      </div>
+                      <div className="mb-2">
+                        <Input
+                            type="text"
+                            name="phone"
+                            placeholder="Phone"
                             propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
                         />
                       </div>
                       <div className="mb-2">
                         <Input
                             type="text"
-                            name="pages"
-                            placeholder="Pages"
+                            name="location"
+                            placeholder="Location"
                             propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
-                        />
-                      </div>
-                      <div className="mb-2">
-                        <Input
-                            type="text"
-                            name="isbn"
-                            placeholder="ISBN"
-                            propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
-                        />
-                      </div>
-                      <div className="mb-2">
-                        <Input
-                            type="text"
-                            name="price"
-                            placeholder="Price"
-                            propsClassName="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
-                        />
-                      </div>
-                      <div className="mb-2">
-                        <Textarea
-                          name="description"
-                          placeholder="About this book"
-                          notifWarning="gray"
-                          rows="3"
-                          className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600"
                         />
                       </div>
 
                       <div className="mb-2">
-                        <label htmlFor="file" className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-2/12 block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600 cursor-pointer">
+                        <label htmlFor="file" className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC] w-12/12 lg:w-3/12  xl:w-2/12 block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600 cursor-pointer">
                           <div className="flex items-center justify-center space-x-3 text-gray-400 text-lg font-bold">
-                            <p>Attach Book File</p>
+                            <p>Update Image</p>
                             <MdAttachFile size={23} />
                           </div>
                         </label>
@@ -139,12 +177,20 @@ const handleImageTransaction = (e) => {
                         )
                     }
 
-                        <Buttons type="button" typeButton="submit" className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-2/12 text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10 float-right">
-                          <div className="flex items-center space-x-3 justify-center">
-                            <p>Add Book</p>
-                            <MdLibraryAdd />
-                          </div>
-                        </Buttons>
+                        <div className="w-full flex justify-between items-center mt-14 flex-col md:flex-row space-y-3 md:space-y-0">
+                          <Buttons type="link" href='/profile' className=" block border-2 border-[#393939] rounded-sm py-1.5 w-full md:w-2/12 min-w-[100px] text-center hover:text-white hover:bg-[#393939] active:bg-[#393939] focus:outline-none focus:ring focus:ring-[#393939]">
+                            <div className="flex items-center space-x-3 justify-center">
+                              <MdKeyboardBackspace />
+                              <p>Back</p>
+                            </div>
+                          </Buttons>
+                          <Buttons type="button" typeButton="submit" className=" block border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-full md:w-2/12 text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10">
+                            <div className="flex items-center space-x-3 justify-center">
+                              <p>Update</p>
+                              <MdModeEditOutline />
+                            </div>
+                          </Buttons>
+                        </div>
                     </Form>
                 );
             }}

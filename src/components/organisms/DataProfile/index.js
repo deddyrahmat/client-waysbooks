@@ -44,7 +44,7 @@ function DataProfile({user, purchaseBooks}) {
                     <div className="w-full">
                         <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="profile-user" className='object-cover object-center w-full h-full rounded-lg' />
                     </div>
-                        <Buttons type='link' href='/' className='block mt-5 bg-[#D60000] rounded py-3 w-full text-center text-lg font-bold text-white hover:bg-red-500 active:bg-red-500 focus:outline-none focus:ring focus:ring-red-500'>
+                        <Buttons type='link' href='/profile/edit' className='block mt-5 bg-[#D60000] rounded py-3 w-full text-center text-lg font-bold text-white hover:bg-red-500 active:bg-red-500 focus:outline-none focus:ring focus:ring-red-500'>
                             Edit Profile
                         </Buttons>
                 </div>

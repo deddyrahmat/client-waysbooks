@@ -4,7 +4,7 @@ import React from 'react'
 import Header from 'components/organisms/Header'
 import EditUser from 'components/organisms/EditUser'
 
-function AddBook() {
+function EditProfile() {
 
   return (
     <>
@@ -14,4 +14,4 @@ function AddBook() {
   )
 }
 
-export default AddBook
+export default EditProfile

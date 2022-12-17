@@ -4,6 +4,7 @@ const authSlice = createSlice({
     name : "authReducer",
     initialState : {
         role : '',
+        biodata : [],
         loading : true,
         login : false,
         register : false,
@@ -18,9 +19,12 @@ const authSlice = createSlice({
             state.role = action.payload.role;
             state.loading = action.payload.loading;
             state.statusAuth = action.payload.statusAuth;
+        },
+        authBiodata : (state, action) => {
+            state.biodata = action.payload.biodata
         }
     }
 })
 
-export const {authStore, authAccess} = authSlice.actions;
+export const {authStore, authAccess, authBiodata} = authSlice.actions;
 export default authSlice.reducer;
