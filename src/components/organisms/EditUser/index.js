@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from 'react-router-dom';
 import { MdModeEditOutline, MdAttachFile, MdKeyboardBackspace } from "react-icons/md";
 import { useSelector } from "react-redux";
 
@@ -10,14 +9,11 @@ import MessageValidation from "utils/MessageValidation";
 
 import Buttons from "components/atoms/Buttons";
 import Input from "components/atoms/Form/Input";
-import Textarea from 'components/atoms/Form/Textarea';
 import Modal from 'components/atoms/Modal';
 import Select from 'components/atoms/Form/Select';
 
 
 function EditUser() {
-  const navigate = useNavigate();
-
   const { biodata } = useSelector((state) => state.authReducer);
 
   // validation form

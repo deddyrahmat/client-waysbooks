@@ -108,7 +108,7 @@ function Navbar() {
                         <>
                         <div className="hidden lg:flex justify-center items-center space-x-4">
                             <Buttons
-                                className="border-2 border-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center hover:text-white hover:bg-[#393939] active:bg-[#393939] focus:outline-none focus:ring focus:ring-[#393939] z-10"
+                                className="border-2 border-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center hover:text-white hover:bg-[#393939] active:bg-[#393939] focus:outline-none focus:ring-1 focus:ring-[#393939] z-10"
                                 onClick={() => handleOpenLogin()}
                             >
                                 Login
@@ -169,7 +169,7 @@ function Navbar() {
                             </div>
 
                             <Buttons
-                                className="block border-2 border-[#393939] w-full text-center rounded-sm py-1.5 hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-gray-500 z-10"
+                                className="block border-2 border-[#393939] w-full text-center rounded-sm py-1.5 hover:bg-gray-500 active:bg-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 z-10"
                                 onClick={() => handleOpenLogin()}
                             >
                                 Login
