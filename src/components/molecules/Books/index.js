@@ -58,7 +58,7 @@ function Books({data}) {
     <CardBook data={data}>
       <div className="bg-white rounded-md p-3">
         <div className="h-[270px] w-full bg-white mb-3">
-          <img src={data.image} alt="cover-book" className='w-full h-full object-contain object-center' />
+          <img src={data.thumbnail} alt="cover-book" className='w-full h-full object-contain object-center' />
         </div>
           <h6 className="text-2xl font-bold font-tinos truncate-2 min-h-[60px]">{data.title}</h6>
           <p className="italic text-sm text-[#929292] mb-3">{data.author}</p>

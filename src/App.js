@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Cookies from 'js-cookie';
 
+// component
 import ProtectedRoute from 'components/atoms/ProtectedRoute';
 import DetailBook from "pages/DetailBook";
 import LandingPage from "pages/LandingPage";
@@ -10,7 +12,13 @@ import Book from 'pages/admin/Book';
 import AddBook from "pages/admin/AddBook";
 import EditProfile from "pages/EditProfile";
 
+// config
+import { setAuthToken } from "config/Axios";
+
 function App() {
+    if (Cookies.get('accessToken')) {
+        setAuthToken(Cookies.get('accessToken'))
+    }
     return (
         <>
             <Router>

@@ -1,18 +1,31 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 // component
 import HeaderLanding from 'components/organisms/HeaderLanding'
 import ListBooks from 'components/organisms/ListBooks'
-
-// dummy data
-import dataBooks  from '../dummy/listbook.json'
+import LoadingScreen from 'components/atoms/LoadingScreen';
 
 function LandingPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000);
+  },[]);
+  // console.log('dataBooks', dataBooks)
+
   return (
-    <div className='bg-[#F3F3F3] pb-9'>
-        <HeaderLanding dataBooks={dataBooks} />
-        <ListBooks dataBooks={dataBooks} />
-    </div>
+    <>
+    {
+      isLoading ? (<LoadingScreen />) : (
+        <div className='bg-[#F3F3F3] pb-9'>
+          <HeaderLanding />
+          <ListBooks />
+        </div>
+      )
+    }
+    </>
   )
 }
 
