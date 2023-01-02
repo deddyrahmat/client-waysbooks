@@ -90,7 +90,7 @@ function CartList() {
                                             <div className="flex flex-col sm:flex-row items-start justify-between space-x-3 w-5/6">
                                                 <div className="h-[175px] w-[140px] mx-auto sm:mx-0 mb-3 sm:mb-0">
                                                     <img
-                                                        src={item.image}
+                                                        src={item.thumbnail}
                                                         alt={item.title}
                                                         className="h-full w-full object-cover"
                                                     />

@@ -37,9 +37,10 @@ const authSlice = createSlice({
         token : '',
         refresh : '',
         biodata : [],
-        login : false,
-        register : false,
-        statusAuth : false
+        login : false,//check modal login
+        register : false,//check modal register
+        loading : true,//check in protected route
+        statusAuth : false//check status auth user
     },
     reducers : {
         authStore : (state, action) => {
@@ -57,6 +58,7 @@ const authSlice = createSlice({
             state.biodata = [];
             state.token = '';
             state.refresh = '';
+            state.loading = true;
         }
     },
     extraReducers: {
@@ -68,6 +70,7 @@ const authSlice = createSlice({
           state.refresh =action.payload.refresh_token;
           state.login =false;
           state.register =false;
+          state.loading = false;
         },
     }
 })

@@ -16,13 +16,13 @@ import Input from "components/atoms/Form/Input";
 import MessageValidation from "utils/MessageValidation";
 
 // state global
-import { authStore, authAccess, authBiodata } from "store/authSlice";
+import { authStore } from "store/authSlice";
 
 // dummy data
-import usersLogin from '../../../dummy/users.json';
-import ApiAuth  from 'config/Endpoint/auth';
-import { setAuthToken } from 'config/Axios';
-import { toast } from 'react-toastify';
+// import usersLogin from '../../../dummy/users.json';
+// import ApiAuth  from 'config/Endpoint/auth';
+// import { setAuthToken } from 'config/Axios';
+// import { toast } from 'react-toastify';
 
 function Login() {
 

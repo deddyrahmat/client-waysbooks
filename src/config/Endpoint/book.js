@@ -16,6 +16,6 @@ export default {
             .then((res) => res.data),
     bySlug: (slug) =>
         axios
-            .get(`/book/best-seller/${slug}`)
+            .get(`/book/${slug}`)
             .then((res) => res.data),
 }

@@ -14,6 +14,7 @@ import {rupiah} from '../../../utils/FormatCurrency';
 import { cartStore } from "store/cartSlice";
 
 function DataBook({data}) {
+  // console.log('data', data)
 
   const [success, setSuccess] = useState(false);
 
@@ -25,7 +26,7 @@ function DataBook({data}) {
                 cart: {
                     id : data.id,
                     title : data.title,
-                    image : data.image,
+                    thumbnail : data.thumbnail,
                     author : data.author,
                     publication : data.publication,
                     price : data.price,
@@ -47,7 +48,7 @@ function DataBook({data}) {
         </Modal>
         <div className="max-w-[905px] mx-auto mt-12 px-3 grid grid-cols-1 lg:grid-cols-2 gap-8 justify-between items-start mb-10 lg:mb-20">
           <div className="h-[577px] w-full bg-white">
-            <img src={data.image} alt="cover" className='rounded-lg h-full w-full object-cover object-center' />
+            <img src={data.thumbnail} alt="cover" className='rounded-lg h-full w-full object-contain lg:object-cover object-center' />
           </div>
           <div className="text-start">
             <h1 className='font-bold text-2xl lg:text-5xl font-tinos'>{data.title}</h1>
@@ -64,7 +65,7 @@ function DataBook({data}) {
         </div>
         <div className="max-w-[905px] mx-auto px-3">
           <h6 className='font-bold text-4xl mb-6'>About This Book</h6>
-          {parse(data.detail)}
+          {parse(String(data.detail))}
           <Buttons className='float-right my-9 border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-36 min-w-[100px] text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white flex justify-center items-center space-x-3' onClick={() => handleAddCart()}>
             <span>Add Cart</span>
             <MdShoppingBasket size={23} />
