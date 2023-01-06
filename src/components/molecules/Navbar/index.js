@@ -70,7 +70,7 @@ function Navbar() {
                     statusAuth ? (
                         <>
                             {
-                                role === 'administrator' ? (
+                                role === 'admin' ? (
                                     <>
                                     {/* desktop */}
                                         <div className="border-r-2 border-gray-400 hidden md:flex items-center mr-10 ">
