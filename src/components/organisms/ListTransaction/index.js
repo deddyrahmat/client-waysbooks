@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useGlobalFilter } from "react-table";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import moment from "moment";
@@ -17,6 +17,7 @@ import "./listTransaction.css";
 
 // config
 import ApiTransaction from 'config/Endpoint/transaction';
+import { GlobalFilter } from "components/molecules/GlobalFilter.js";
 
 const ListTransaction = memo(() => {
     const [dataTransactions, setDataTransactions] = useState([]);
@@ -25,7 +26,7 @@ const ListTransaction = memo(() => {
     moment.locale("id", idLocale);
 
     // call api transaction list
-    const prosesListBooks = async () => {
+    const prosesListTransaction = async () => {
         try {
             const response = await ApiTransaction.list(1,50);
 
@@ -40,7 +41,7 @@ const ListTransaction = memo(() => {
     };
 
     useEffect(() => {
-        prosesListBooks();
+        prosesListTransaction();
     }, []);
 
     // console.log('dataTransactions', dataTransactions)
@@ -64,17 +65,23 @@ const ListTransaction = memo(() => {
             nextPage,
             previousPage,
             setPageSize,
-            state: { pageIndex, pageSize },
+            setGlobalFilter,
+            state: { pageIndex, pageSize,globalFilter },
         } = useTable(
             {
                 columns,
                 data : dataTransactions,
                 initialState: { pageIndex: 0 },
             },
+            useGlobalFilter,
             usePagination
         );
+
+        // const {globalFilter, pageSize} = state;
+
         return (
             <>
+                <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
                 <table {...getTableProps()}>
                     <thead>
                         {headerGroups.map((headerGroup) => (
@@ -220,7 +227,7 @@ const ListTransaction = memo(() => {
             },
             {
                 Header: "Date Transaction",
-                accessor: "date_transaction",
+                accessor: "createdAt",
                 Cell: (s) => (
                     <span className="text-sm capitalize">
                         {moment(s.value).format("DD-MMMM-YYYY")}
@@ -275,14 +282,14 @@ const ListTransaction = memo(() => {
                         >
                             <MdModeEditOutline size={20} color="blue" />
                         </div>
-                        <div
+                        {/* <div
                             className="cursor-pointer"
                             onClick={() => {
                               handleAction(tableProps.row.original)
                             }}
                         >
                             <FaTrashAlt size={20} color="red" />
-                        </div>
+                        </div> */}
                     </div>
                 ),
             },

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { useTable, usePagination } from 'react-table'
+import { useTable, usePagination, useGlobalFilter } from 'react-table'
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import moment from 'moment'
@@ -14,6 +14,7 @@ import {rupiah} from '../../../utils/FormatCurrency';
 // styling
 import './adminListBook.css'
 import Buttons from 'components/atoms/Buttons';
+import { GlobalFilter } from 'components/molecules/GlobalFilter.js';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -34,13 +35,15 @@ function Table({ columns, data }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    setGlobalFilter,
+    state: { pageIndex, pageSize,globalFilter },
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
     },
+    useGlobalFilter,
     usePagination
   )
 
@@ -62,6 +65,7 @@ function Table({ columns, data }) {
           )}
         </code>
       </pre> */}
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
