@@ -6,7 +6,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
 //   const onChange = useAsyncDebounce(value => {
 //     setFilter(value || undefined)
 //   }, 1000)
-console.log('filter', filter)
+// console.log('filter', filter)
   return (
     <p className='my-4'>
       {/* Search:{' '} */}

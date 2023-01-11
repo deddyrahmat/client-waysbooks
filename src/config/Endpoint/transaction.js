@@ -12,4 +12,8 @@ export default {
         axios
             .get(`/transaction?page=${page}&perPage=${perPage}`)
             .then((res) => res.data),
+    changeStatus: (body, config) =>
+        axios
+            .post(`/transaction/status-payment`,body, config)
+            .then((res) => res.data),
 }

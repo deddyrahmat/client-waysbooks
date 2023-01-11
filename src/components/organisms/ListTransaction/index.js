@@ -1,9 +1,8 @@
 import React, { useState, useEffect, memo } from "react";
-import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
+import { MdArrowDropDown } from "react-icons/md";
 import moment from "moment";
 import idLocale from "moment/locale/id";
+import { FaCheckCircle, FaWindowClose } from "react-icons/fa";
 
 // component
 import Modal from "components/atoms/Modal";
@@ -17,11 +16,20 @@ import "./listTransaction.css";
 
 // config
 import ApiTransaction from 'config/Endpoint/transaction';
-import { GlobalFilter } from "components/molecules/GlobalFilter.js";
+import Tables from "components/molecules/Tables";
+import Buttons from "components/atoms/Buttons";
 
 const ListTransaction = memo(() => {
     const [dataTransactions, setDataTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingPayment, setIsLoadingPayment] = useState(false);
+    const [actionPayment, setActionPayment] = useState(false);
+    const [notifPayment, setNotifPayment] = useState(false);
+    const [statusNotifPayment, setStatusNotifPayment] = useState('success');
+    const [valueAction, setValueAction] = useState([]);
+    const [dataBooksId, setDataBooksId] = useState([]);
+    const [dataBooksName, setDataBooksName] = useState([]);
+    const [statusPayment, setStatusPayment] = useState('pending');
     const pageSizes = [10,20,30,40,50]
     moment.locale("id", idLocale);
 
@@ -44,126 +52,44 @@ const ListTransaction = memo(() => {
         prosesListTransaction();
     }, []);
 
-    // console.log('dataTransactions', dataTransactions)
-
-    function Table({ columns }) {
-        // Use the state and functions returned from useTable to build your UI
-        const {
-            getTableProps,
-            getTableBodyProps,
-            headerGroups,
-            prepareRow,
-            page, // Instead of using 'rows', we'll use page,
-            // which has only the rows for the active page
-
-            // The rest of these things are super handy, too ;)
-            canPreviousPage,
-            canNextPage,
-            pageOptions,
-            pageCount,
-            gotoPage,
-            nextPage,
-            previousPage,
-            setPageSize,
-            setGlobalFilter,
-            state: { pageIndex, pageSize,globalFilter },
-        } = useTable(
-            {
-                columns,
-                data : dataTransactions,
-                initialState: { pageIndex: 0 },
-            },
-            useGlobalFilter,
-            usePagination
-        );
-
-        // const {globalFilter, pageSize} = state;
-
-        return (
-            <>
-                <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-                <table {...getTableProps()}>
-                    <thead>
-                        {headerGroups.map((headerGroup) => (
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
-                                        {column.render("Header")}
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                        {page.map((row, i) => {
-                            prepareRow(row);
-                            return (
-                                <tr {...row.getRowProps()}>
-                                    {row.cells.map((cell) => {
-                                        return (
-                                            <td {...cell.getCellProps()}>
-                                                {cell.render("Cell")}
-                                            </td>
-                                        );
-                                    })}
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-                <div className="pagination mt-5">
-                    <button
-                        className={`rounded bg-gray-300 px-2 py-1 mr-2 ${
-                            canPreviousPage ? "hover:bg-white" : "text-gray-400"
-                        }`}
-                        onClick={() => gotoPage(0)}
-                        disabled={!canPreviousPage}
-                    >
-                        {"<<"}
-                    </button>{" "}
-                    <button
-                        className={`rounded bg-gray-300 px-2 py-1 mr-2 ${
-                            canPreviousPage ? "hover:bg-white" : "text-gray-400"
-                        }`}
-                        onClick={() => previousPage()}
-                        disabled={!canPreviousPage}
-                    >
-                        {"Previous"}
-                    </button>{" "}
-                    <button
-                        className={`rounded bg-gray-300 px-2 py-1 mr-2 ${
-                            canNextPage ? "hover:bg-white" : "text-gray-400"
-                        }`}
-                        onClick={() => nextPage()}
-                        disabled={!canNextPage}
-                    >
-                        {"Next"}
-                    </button>{" "}
-                    <button
-                        className={`rounded bg-gray-300 px-2 py-1 mr-2 ${
-                            canNextPage ? "hover:bg-white" : "text-gray-400"
-                        }`}
-                        onClick={() => gotoPage(pageCount - 1)}
-                        disabled={!canNextPage}
-                    >
-                        {">>"}
-                    </button>{" "}
-                    <select
-                        value={pageSize}
-                        onChange={(e) => {
-                            setPageSize(Number(e.target.value));
-                        }}
-                    >
-                        {pageSizes.map((pageSize) => (
-                            <option key={pageSize} value={pageSize}>
-                                Show {pageSize}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </>
-        );
+    const handleStatusPayment = (e) => {
+        setStatusPayment(e.target.value)
     }
+
+    // call api update status payment
+    const prosesUpdateTransaction = async () => {
+        setIsLoadingPayment(true);
+        try {
+            const body = JSON.stringify({
+                books : dataBooksId,
+                status : statusPayment,
+                transaction_id : valueAction.id,
+                user_id : valueAction.user_id
+            });
+            const config = {
+                headers: {
+                    "content-type": "application/json",
+                },
+            };
+            const response = await ApiTransaction.changeStatus(body, config);
+
+            if (response.status === 1) {
+                setDataTransactions(response.data);
+                setStatusNotifPayment("success");
+                handleNotifPayment(true);
+                setIsLoadingPayment(false);
+                handleActionPayment();
+                prosesListTransaction();
+            }
+        } catch (error) {
+            console.log("Your System ", error);
+            setStatusNotifPayment("failed");
+            handleActionPayment();
+            setIsLoadingPayment(false);
+        }
+    };
+
+    // console.log('dataTransactions', dataTransactions)
 
     // handle preview image payment in modal popup
     const [imageTransfer, setImageTransfer] = useState("");
@@ -177,9 +103,31 @@ const ListTransaction = memo(() => {
         setImageTransfer(value);
         setPreviewImage(true);
     };
+    // console.log('dataBooks', dataBooksName)
 
     const handleAction = (value) => {
-      console.log('value', value)
+        //   console.log('value', value)
+        setDataBooksId(value.booktransactions.map(book =>
+            {
+                return book.id
+            }
+        ))
+        setDataBooksName(value.booktransactions.map(book =>
+            {
+                return book.title
+            }
+        ))
+        setValueAction(value);
+        setActionPayment(true);
+    }
+
+    // state modal action payment
+    const handleActionPayment = () => {
+        setActionPayment(!actionPayment);
+    }
+
+    const handleNotifPayment = () => {
+        setNotifPayment(!notifPayment);
     }
 
     const columns = React.useMemo(
@@ -280,16 +228,8 @@ const ListTransaction = memo(() => {
                               handleAction(tableProps.row.original)
                             }}
                         >
-                            <MdModeEditOutline size={20} color="blue" />
+                            <MdArrowDropDown size={25} color="blue" />
                         </div>
-                        {/* <div
-                            className="cursor-pointer"
-                            onClick={() => {
-                              handleAction(tableProps.row.original)
-                            }}
-                        >
-                            <FaTrashAlt size={20} color="red" />
-                        </div> */}
                     </div>
                 ),
             },
@@ -297,8 +237,47 @@ const ListTransaction = memo(() => {
         []
     );
 
+    // console.log('dataTransactions', dataTransactions)
+
     return (
         <div className="container mx-auto my-10 px-5 sm:px-20">
+            <Modal open={notifPayment} handleProps={() => handleNotifPayment()}>
+                <div className="text-center">
+                {
+                    statusNotifPayment === 'success' ? (
+                    <>
+                        <FaCheckCircle size={120} color="green" className="mx-auto" />
+                        <p className="mt-3 lg:mt-5 font-semibold text-xl lg:text-3xl">Payment Update Success</p>
+                    </>
+                    ) : (
+                        <>
+                            <FaWindowClose size={120} color="red" className="mx-auto" />
+                            <p className="mt-3 lg:mt-5 font-semibold text-xl lg:text-3xl">Payment Update Success</p>
+                        </>
+                    )
+                }
+                </div>
+            </Modal>
+            <Modal open={actionPayment} handleProps={() => handleActionPayment()}>
+                <div className="w-full mx-auto mt-5 mb-3 cursor-pointer">
+                    <p className="font-bold text-xl mb-3">Information Transaction : </p>
+                    <p className="text-lg font-semibold">Name : {valueAction?.user?.fullname}</p>
+                    <p className="text-lg font-semibold">Total : {valueAction?.total}</p>
+                    <p className="text-lg font-semibold mt-3 mb-1">Buy : </p>
+                    {dataBooksName.map((book, index) => (
+                        <p className="text-lg" key={index} >{book}</p>
+                    ))}
+                    <p className="font-bold text-xl mt-10 mb-3"> Select status payment: </p>
+                    <select name="" id="" className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600" onChange={(e) => handleStatusPayment(e)}>
+                        <option>- - -</option>
+                        <option value="approved">Approved</option>
+                        <option value="cancel">Cancel</option>
+                    </select>
+                    <Buttons isLoading={isLoadingPayment} className="mt-5 block border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white" onClick={() =>prosesUpdateTransaction()}>
+                        Update
+                    </Buttons>
+                </div>
+            </Modal>
             <Modal open={previewImage} handleProps={() => handlePreview()}>
                 <div className="h-1/2 w-1/2 mx-auto mt-5 mb-3 cursor-pointer">
                     <img
@@ -313,9 +292,9 @@ const ListTransaction = memo(() => {
             </h6>
             <div className="overflow-scroll lg:overflow-auto">
             {
-                isLoading ? (<LoadingAnimate />):(
-                    <Table columns={columns}/>
-                )
+                isLoading ? (<LoadingAnimate />): dataTransactions?.length > 0 && (
+                            <Tables pageSizes={pageSizes} data={dataTransactions} columns={columns}/>
+                        )
             }
             </div>
         </div>
