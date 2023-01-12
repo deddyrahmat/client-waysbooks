@@ -6,9 +6,9 @@ export default {
         axios
             .post("/book", body, config)
             .then((res) => res.data),
-    list: () =>
+    list: (page=1, perPage=5) =>
         axios
-            .get("/book")
+            .get("/book?page=${page}&perPage=${perPage}`)")
             .then((res) => res.data),
     bestSeller: () =>
         axios
