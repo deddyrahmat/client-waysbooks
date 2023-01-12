@@ -15,7 +15,7 @@ import { rupiah } from "../../../utils/FormatCurrency";
 import "./adminListBook.css";
 
 // config
-import ApiTransaction from 'config/Endpoint/book';
+import ApiTransaction from "config/Endpoint/book";
 import Tables from "components/molecules/Tables";
 import Buttons from "components/atoms/Buttons";
 
@@ -25,18 +25,18 @@ const AdminListBooks = memo(() => {
     const [isLoadingPayment, setIsLoadingPayment] = useState(false);
     const [actionPayment, setActionPayment] = useState(false);
     const [notifPayment, setNotifPayment] = useState(false);
-    const [statusNotifPayment, setStatusNotifPayment] = useState('success');
+    const [statusNotifPayment, setStatusNotifPayment] = useState("success");
     const [valueAction, setValueAction] = useState([]);
     const [dataBooksId, setDataBooksId] = useState([]);
     const [dataBooksName, setDataBooksName] = useState([]);
-    const [statusPayment, setStatusPayment] = useState('pending');
-    const pageSizes = [10,20,30,40,50]
+    const [statusPayment, setStatusPayment] = useState("pending");
+    const pageSizes = [10, 20, 30, 40, 50];
     moment.locale("id", idLocale);
 
     // call api transaction list
     const prosesListTransaction = async () => {
         try {
-            const response = await ApiTransaction.list(1,50);
+            const response = await ApiTransaction.list(1, 50);
 
             if (response.status === 1) {
                 setDataTransactions(response.data);
@@ -70,28 +70,28 @@ const AdminListBooks = memo(() => {
 
     const handleAction = (value) => {
         //   console.log('value', value)
-        setDataBooksId(value.booktransactions.map(book =>
-            {
-                return book.id
-            }
-        ))
-        setDataBooksName(value.booktransactions.map(book =>
-            {
-                return book.title
-            }
-        ))
+        setDataBooksId(
+            value.booktransactions.map((book) => {
+                return book.id;
+            })
+        );
+        setDataBooksName(
+            value.booktransactions.map((book) => {
+                return book.title;
+            })
+        );
         setValueAction(value);
         setActionPayment(true);
-    }
+    };
 
     // state modal action payment
     const handleActionPayment = () => {
         setActionPayment(!actionPayment);
-    }
+    };
 
     const handleNotifPayment = () => {
         setNotifPayment(!notifPayment);
-    }
+    };
 
     const columns = React.useMemo(
         () => [
@@ -122,7 +122,9 @@ const AdminListBooks = memo(() => {
                 Header: "Price",
                 accessor: "price",
                 Cell: (s) => (
-                    <span className="text-sm capitalize">{rupiah(s.value)}</span>
+                    <span className="text-sm capitalize">
+                        {rupiah(s.value)}
+                    </span>
                 ),
             },
             {
@@ -146,7 +148,7 @@ const AdminListBooks = memo(() => {
                 accessor: "isbn",
                 Cell: (s) => (
                     <span className="text-sm capitalize">
-                        {s.value === '' ? '- - -' : s.value}
+                        {s.value === "" ? "- - -" : s.value}
                     </span>
                 ),
             },
@@ -174,23 +176,6 @@ const AdminListBooks = memo(() => {
 
     return (
         <div className="container mx-auto my-10 px-5 sm:px-20">
-            <Modal open={notifPayment} handleProps={() => handleNotifPayment()}>
-                <div className="text-center">
-                {
-                    statusNotifPayment === 'success' ? (
-                    <>
-                        <FaCheckCircle size={120} color="green" className="mx-auto" />
-                        <p className="mt-3 lg:mt-5 font-semibold text-xl lg:text-3xl">Payment Update Success</p>
-                    </>
-                    ) : (
-                        <>
-                            <FaWindowClose size={120} color="red" className="mx-auto" />
-                            <p className="mt-3 lg:mt-5 font-semibold text-xl lg:text-3xl">Payment Update Success</p>
-                        </>
-                    )
-                }
-                </div>
-            </Modal>
             <Modal open={previewImage} handleProps={() => handlePreview()}>
                 <div className="h-1/2 w-1/2 mx-auto mt-5 mb-3 cursor-pointer">
                     <img
@@ -200,18 +185,33 @@ const AdminListBooks = memo(() => {
                     ></img>
                 </div>
             </Modal>
-            <h6 className="font-bold text-xl sm:text-4xl mb-6 font-tinos">
-                List Books
-            </h6>
+            <div className="flex justify-between items-center">
+                <p className="font-bold text-xl sm:text-4xl mb-6 font-tinos">
+                    List Book
+                </p>
+                <Buttons
+                    className="border-2 border-[#393939] block rounded-sm py-1.5 min-w-[100px] text-center hover:text-white hover:bg-[#393939] active:bg-[#393939] focus:outline-none focus:ring-1 focus:ring-[#393939]"
+                    type="link"
+                    href="/admin/add-book"
+                >
+                    Add Book
+                </Buttons>
+            </div>
             <div className="overflow-scroll lg:overflow-auto">
-            {
-                isLoading ? (<LoadingAnimate />): dataTransactions?.length > 0 && (
-                            <Tables pageSizes={pageSizes} data={dataTransactions} columns={columns}/>
-                        )
-            }
+                {isLoading ? (
+                    <LoadingAnimate />
+                ) : (
+                    dataTransactions?.length > 0 && (
+                        <Tables
+                            pageSizes={pageSizes}
+                            data={dataTransactions}
+                            columns={columns}
+                        />
+                    )
+                )}
             </div>
         </div>
     );
-})
+});
 
 export default AdminListBooks;
