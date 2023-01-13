@@ -8,7 +8,7 @@ export default {
             .then((res) => res.data),
     list: (page=1, perPage=5) =>
         axios
-            .get("/book?page=${page}&perPage=${perPage}`)")
+            .get(`/book?page=${page}&perPage=${perPage}`)
             .then((res) => res.data),
     bestSeller: () =>
         axios

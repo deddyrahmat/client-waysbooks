@@ -62,30 +62,35 @@ function CartList() {
     const handlePayment = async () => {
         if (image.raw === "") {
         } else {
-            const config = {
-                headers: {
-                    "content-type": "multipart/form-data",
+            try {
+                const config = {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    }
                 }
-            }
-
-            let books = [];
-            cart.map(cart =>
-                {
-                    books.push(cart.id)
+    
+                let books = [];
+                cart.map(cart =>
+                    {
+                        books.push(cart.id)
+                    }
+                )
+    
+                const body = new FormData();
+    
+                body.append("total", total);
+                body.append("evidence", image.raw);
+                body.append("books",  JSON.stringify(books));
+    
+                // eksekusi api dengan mengirim body dan config
+                const response = await ApiTransaction.upload( body, config);
+                if (response.status === 1) {
+                    setSuccess(true);
                 }
-            )
-
-            const body = new FormData();
-
-            body.append("total", total);
-            body.append("evidence", image.raw);
-            body.append("books",  JSON.stringify(books));
-
-            // eksekusi api dengan mengirim body dan config
-            const response = await ApiTransaction.upload( body, config);
-            if (response.status === 1) {
-                setSuccess(true);
+            } catch (error) {
+                console.log('Your System ', error)
             }
+            
         }
     }
     return (
