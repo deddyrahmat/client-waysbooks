@@ -10,7 +10,7 @@ import Buttons from "../Buttons";
 import { authLogout } from "store/authSlice";
 
 
-function Dropdown({funDropdown}) {
+function Dropdown({funDropdown, toggleDropdown}) {
     const dispatch = useDispatch();
 
     const { role } = useSelector((state) => state.authReducer);
@@ -21,6 +21,7 @@ function Dropdown({funDropdown}) {
         dispatch(
             authLogout()
         );
+        toggleDropdown()
         navigate('/');
     };
     return (

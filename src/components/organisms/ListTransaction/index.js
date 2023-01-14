@@ -241,7 +241,7 @@ const ListTransaction = memo(() => {
 
     return (
         <div className="container mx-auto my-10 px-5 sm:px-20">
-            <Modal open={notifPayment} handleProps={() => handleNotifPayment()}>
+            <Modal open={notifPayment} handleProps={() => handleNotifPayment()} className="w-full sm:w-2/4 lg:w-2/4">
                 <div className="text-center">
                 {
                     statusNotifPayment === 'success' ? (
@@ -258,7 +258,7 @@ const ListTransaction = memo(() => {
                 }
                 </div>
             </Modal>
-            <Modal open={actionPayment} handleProps={() => handleActionPayment()}>
+            <Modal open={actionPayment} handleProps={() => handleActionPayment()} className="w-full sm:w-2/4 lg:w-2/4">
                 <div className="w-full mx-auto mt-5 mb-3 cursor-pointer">
                     <p className="font-bold text-xl mb-3">Information Transaction : </p>
                     <p className="text-lg font-semibold">Name : {valueAction?.user?.fullname}</p>
@@ -278,7 +278,7 @@ const ListTransaction = memo(() => {
                     </Buttons>
                 </div>
             </Modal>
-            <Modal open={previewImage} handleProps={() => handlePreview()}>
+            <Modal open={previewImage} handleProps={() => handlePreview()} className="w-full sm:w-2/4">
                 <div className="h-1/2 w-1/2 mx-auto mt-5 mb-3 cursor-pointer">
                     <img
                         src={imageTransfer}

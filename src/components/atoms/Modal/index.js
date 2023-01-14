@@ -24,7 +24,8 @@ function Modal(props) {
                     props.open ? "flex" : "hidden"
                 } w-full bg-slate-800 bg-opacity-50 justify-center items-center flex-col fixed top-0 right-0 bottom-0 left-0 z-50 overflow-hidden h-screen`}
             >
-                <div className="relative w-full sm:w-2/4 lg:w-2/4 px-3">
+                {/* w-full sm:w-2/4 lg:w-1/4 */}
+                <div className={`relative px-3 ${props.className}`}>
                     <MdClose
                         className="mb-4 absolute top-[-30px] right-[10px] cursor-pointer bg-white rounded-full"
                         size={25}

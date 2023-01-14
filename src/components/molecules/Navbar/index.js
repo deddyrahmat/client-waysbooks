@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdMenu, MdClose, MdShoppingCart, MdMoreVert } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,11 +16,18 @@ function Navbar() {
     const {cart} = useSelector((state) => state.cartReducer);
 
     // state show menu in mobile version
-    const [nav, setNav] = useState(false);
+    const [statusNav, setStatusNav] = useState(false);
     
+    // console.log('statusNav', statusNav)
     const toggleNav = () => {
-        setNav(!nav);
+        setStatusNav(!statusNav);
     };
+
+    useEffect(() => {
+        if (statusAuth && role === 'user') {
+            setStatusNav(false);
+        }
+    },[]);
 
     // ==========================
     // state show dropdown user login
@@ -82,7 +89,7 @@ function Navbar() {
                                             </Buttons>
                                         </div>
                                         {/* mobile */}
-                                        <MdMoreVert size={36} className="md:hidden mr-4 cursor-pointer" onClick={() => toggleNav()} />
+                                        <MdMoreVert size={36} className="md:hidden mr-4 cursor-pointer z-40" onClick={() => toggleNav()} />
                                     </>
                                 ) : (
                                     <Buttons className="relative mr-5 z-10 " href="/cart" type="link">
@@ -101,7 +108,7 @@ function Navbar() {
                                 <div className="h-11 w-11 overflow-hidden">
                                     <img className="inline-block h-full w-full object-cover rounded-full ring-2 ring-white cursor-pointer focus:outline-none" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="user" onClick={() => toggleDropdown()} />
                                 </div>
-                                <Dropdown funDropdown={funDropdown} />
+                                <Dropdown funDropdown={funDropdown} toggleDropdown={toggleDropdown} />
                             </div>
                         </>
                     ) : (
@@ -137,7 +144,7 @@ function Navbar() {
             {/* versi mobile */}
             <div
                 className={`${
-                    nav ? "top-0" : "top-[-100%]"
+                    statusNav ? "top-0" : "top-[-100%]"
                 } fixed lg:hidden mx-auto w-full transition-all duration-700 ease-in-out bg-gray-100 py-4 z-10`}
             >
                 {

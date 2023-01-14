@@ -44,6 +44,8 @@ function Hero() {
         prosesListBooks();
     }, []);
 
+    // console.log('dataBooks', dataBooks)
+
     const [success, setSuccess] = useState(false);
 
     const handleSuccess = () => {
@@ -117,27 +119,27 @@ function Hero() {
                     >
                         {dataBooks?.length > 0 &&
                             dataBooks?.map((book) => (
-                                <SwiperSlide key={book.id}>
+                                <SwiperSlide key={book?.book.id}>
                                     <img
-                                        src={book.thumbnail}
+                                        src={book?.book.thumbnail}
                                         alt="image-book"
                                     />
                                     <div className="px-7 py-4 bg-white text-left">
                                         <h6 className="text-2xl font-bold font-tinos truncate-3">
-                                            {book.title}
+                                            {book?.book.title}
                                         </h6>
                                         <p className="italic text-sm text-[#929292]">
-                                            {book.author}
+                                            {book?.book.author}
                                         </p>
                                         <p className="text-sm mt-4 mb-9 truncate-3">
-                                            {book.short_desc}
+                                            {book?.book.short_desc}
                                         </p>
                                         <p className="text-[#44B300] font-bold text-lg mb-3.5">
-                                            {rupiah(book.price)}
+                                            {rupiah(book?.book.price)}
                                         </p>
                                         <Buttons
                                             className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white"
-                                            onClick={() => handleAddCart(book)}
+                                            onClick={() => handleAddCart(book?.book)}
                                         >
                                             Add To Cart
                                         </Buttons>
