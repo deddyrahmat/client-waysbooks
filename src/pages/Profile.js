@@ -12,7 +12,7 @@ function Profile() {
   return (
     <>
         <Header />
-        <DataProfile user="" purchaseBooks={purchaseBooks} />
+        <DataProfile purchaseBooks={purchaseBooks} />
     </>
   )
 }

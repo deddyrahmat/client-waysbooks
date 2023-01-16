@@ -2,8 +2,11 @@ import Buttons from 'components/atoms/Buttons';
 import Books from 'components/molecules/Books';
 import React from 'react'
 import { MdMailOutline, MdFemale, MdMale, MdOutlinePhone, MdLocationOn } from "react-icons/md";
+import { useSelector } from "react-redux";
 
-function DataProfile({user, purchaseBooks}) {
+function DataProfile({purchaseBooks}) {
+    const { biodata } = useSelector((state) => state.authReducer);
+    console.log('biodata', biodata)
   return (
     <div className="mt-20">
         <div className="container mx-auto px-10 pb-14">
@@ -14,36 +17,42 @@ function DataProfile({user, purchaseBooks}) {
                     <div className="flex space-x-3 items-center mb-5 lg:mb-10">
                         <MdMailOutline size={35} className="hidden md:block" color="gray" />
                         <div className="flex flex-col">
-                            <p className='text-sm font-extrabold break-all'>deddyrahmat@gmail.com</p>
+                            <p className='text-sm font-extrabold break-all'>{biodata.email}</p>
                             <p className='text-xs text-[#8A8C90]'>Email</p>
                         </div>
                     </div>
                     <div className="flex space-x-3 items-center mb-5 lg:mb-10">
                         <MdMale size={35} className="hidden md:block" color="gray" />
                         <div className="flex flex-col">
-                            <p className='text-sm font-extrabold break-all'>Male</p>
+                            <p className='text-sm font-extrabold break-all'>{biodata.gender ? biodata.gender : '- - -'}</p>
                             <p className='text-xs text-[#8A8C90]'>Gender</p>
                         </div>
                     </div>
                     <div className="flex space-x-3 items-center mb-5 lg:mb-10">
                         <MdOutlinePhone size={35} className="hidden md:block" color="gray" />
                         <div className="flex flex-col">
-                            <p className='text-sm font-extrabold break-all'>0812-3456-7890</p>
+                            <p className='text-sm font-extrabold break-all'>{biodata.phone ? biodata.phone : '- - -'}</p>
                             <p className='text-xs text-[#8A8C90]'>Phone</p>
                         </div>
                     </div>
                     <div className="flex space-x-3 items-center">
                         <MdLocationOn size={35} className="hidden md:block" color="gray" />
                         <div className="flex flex-col">
-                            <p className='text-sm font-extrabold break-all'>Perumahan Melati Residence Bogor</p>
+                            <p className='text-sm font-extrabold break-all'>{biodata.location ? biodata.location : '- - -'}</p>
                             <p className='text-xs text-[#8A8C90]'>Address</p>
                         </div>
                     </div>
                 </div>
                 <div className="w-full lg:w-2/12">
-                    <div className="w-full">
-                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="profile-user" className='object-cover object-center w-full h-full rounded-lg' />
-                    </div>
+                    {biodata.avatar ? (
+                        <div className="w-full">
+                            <img src={biodata.avatar} alt="profile-user" className='object-cover object-center w-full h-full rounded-lg' />
+                        </div>
+                    ) : (
+                        <div className="w-full">
+                            <img src="/assets/images/avatar.png" alt="profile-user" className='object-cover object-center w-full h-full rounded-lg' />
+                        </div>
+                    )}
                         <Buttons type='link' href='/profile/edit' className='block mt-5 bg-[#D60000] rounded py-3 w-full text-center text-lg font-bold text-white hover:bg-red-500 active:bg-red-500 focus:outline-none focus:ring focus:ring-red-500'>
                             Edit Profile
                         </Buttons>
