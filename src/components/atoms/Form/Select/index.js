@@ -52,7 +52,7 @@ function Select({
                     disabled={disabled}
                     {...configTextfield}
                 >
-                    <option>- - -</option>
+                    <option value="">- - -</option>
                     {options?.map((opt) => (
                         <option
                             key={opt.id}

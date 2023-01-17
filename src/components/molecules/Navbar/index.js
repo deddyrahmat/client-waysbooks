@@ -12,7 +12,7 @@ import Register from "components/molecules/Register";
 import Dropdown from "components/atoms/Dropdown";
 
 function Navbar() {
-    const { statusAuth, role } = useSelector((state) => state.authReducer);
+    const { statusAuth, role, biodata } = useSelector((state) => state.authReducer);
     const {cart} = useSelector((state) => state.cartReducer);
 
     // state show menu in mobile version
@@ -106,7 +106,7 @@ function Navbar() {
                             }
                             <div className="relative z-10">
                                 <div className="h-11 w-11 overflow-hidden">
-                                    <img className="inline-block h-full w-full object-cover rounded-full ring-2 ring-white cursor-pointer focus:outline-none" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="user" onClick={() => toggleDropdown()} />
+                                    <img className="inline-block h-full w-full object-cover rounded-full ring-2 ring-white cursor-pointer focus:outline-none" src={biodata.avatar} alt="user" onClick={() => toggleDropdown()} />
                                 </div>
                                 <Dropdown funDropdown={funDropdown} toggleDropdown={toggleDropdown} />
                             </div>

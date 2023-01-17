@@ -38,7 +38,7 @@ function DataProfile() {
     useEffect(() => {
         prosesListBooks();
     }, []);
-    console.log("purchaseBooks", purchaseBooks);
+    // console.log("purchaseBooks", purchaseBooks);
     return (
         <div className="mt-20">
             <div className="container mx-auto px-10 pb-14">

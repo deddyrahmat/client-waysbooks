@@ -43,6 +43,9 @@ const authSlice = createSlice({
         statusAuth : false//check status auth user
     },
     reducers : {
+        authBiodata : (state, action) => {
+            state.biodata = action.payload.biodata;
+        },
         authStore : (state, action) => {
             state.login = action.payload.login;
             state.register = action.payload.register;
@@ -75,5 +78,5 @@ const authSlice = createSlice({
     }
 })
 
-export const {authStore, authAccess, authLogout} = authSlice.actions;
+export const {authStore, authAccess, authBiodata, authLogout} = authSlice.actions;
 export default authSlice.reducer;
