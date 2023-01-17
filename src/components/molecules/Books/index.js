@@ -35,7 +35,7 @@ const CardBook = memo(
         }
       }
   
-    if (data?.url) {
+    if (data?.book_attachment) {
       return (
         <div>
           {children}
@@ -63,7 +63,7 @@ function Books({data}) {
           <h6 className="text-2xl font-bold font-tinos truncate-2 min-h-[60px]">{data.title}</h6>
           <p className="italic text-sm text-[#929292] mb-3">{data.author}</p>
           {
-            data.url ? (
+            data.book_attachment ? (
               <Buttons type='link' href="https://assets.projectsdeddy.web.id/waysbooks/waysbook.pdf" isExternal target='_blank'
                   className="block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full min-w-[100px] text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10"
               >
@@ -79,4 +79,4 @@ function Books({data}) {
   )
 }
 
-export default Books
+export default memo(Books)

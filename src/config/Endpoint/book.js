@@ -18,4 +18,8 @@ export default {
         axios
             .get(`/book/${slug}`)
             .then((res) => res.data),
+    purchased: (page=1, perPage=5) =>
+            axios
+                .get(`/book/purchased?page=${page}&perPage=${perPage}`)
+                .then((res) => res.data),
 }
