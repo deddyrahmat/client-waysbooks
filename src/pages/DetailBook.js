@@ -28,7 +28,7 @@ function DetailBook() {
       }
     } catch (error) {
       setIsLoading(false)
-      console.log('Your System tes ', error )
+      console.log('Your System ', error )
       
     }
   }

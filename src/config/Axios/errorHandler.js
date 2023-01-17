@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 
 export default function errorHandler(error) {
   if (error) {
@@ -10,25 +11,14 @@ export default function errorHandler(error) {
         // jika status yang ditermia 400 maka munculkan toast error
         toast.error(error.response.data.message);
       }
-
+      
       if (error.response.status === 401) {
-        // toast.error(error.response.data.message);
-        // const body = JSON.stringify({token : Cookies.get('refreshToken')});
+        Cookies.set('statusToken', 'expired')
+        window.location.href = '/'
+      }
 
-        // const config = {
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // };
-
-        // const response = API.post('/auth/refresh', body, config).then(() => {
-        //     if (response.status === 200) {
-        //         // Cookies.set("refreshToken", Cookies.get('refreshToken'));
-        //         Cookies.set("accessToken", response.data.accessToken);
-        //         setAuthToken(response.data.accessToken);
-        //     }
-        // }); 
-
+      if (error.response.status === 403) {
+        toast.error("Please login");
       }
 
       if (error.response.status === 500) {

@@ -1,5 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+// state global
+import { authToken, authLogout } from "store/authSlice";
 
 // component
 import ProtectedRoute from 'components/atoms/ProtectedRoute';
@@ -15,10 +20,41 @@ import EditProfile from "pages/EditProfile";
 // config
 import { setAuthToken } from "config/Axios";
 
+import ApiAuth from 'config/Endpoint/auth'
+
 function App() {
-    if (Cookies.get('accessToken')) {
-        setAuthToken(Cookies.get('accessToken'))
-    }
+    const dispatch = useDispatch();
+    const { refresh } = useSelector((state) => state.authReducer);
+    
+    useEffect(() => {
+        if (Cookies.get('statusToken') && refresh !== '') {
+            const body = JSON.stringify({token : refresh});
+                    
+            const config = {
+                headers: {
+                    "content-type": "application/json",
+                },
+            };
+    
+            ApiAuth.refresh( body, config).then((response) => {
+                console.log('response', response)
+                if (response.status === 1) {
+                    dispatch(
+                        authToken({
+                            token: response.token,
+                        })
+                    );
+                    Cookies.remove('statusToken')
+                    setAuthToken(response.token);
+                }
+            }).catch(err => {
+                dispatch(
+                    authLogout()
+                );
+                Cookies.remove('statusToken')
+            }); 
+        }
+    },[]);
     return (
         <>
             <Router>

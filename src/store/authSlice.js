@@ -46,6 +46,9 @@ const authSlice = createSlice({
         authBiodata : (state, action) => {
             state.biodata = action.payload.biodata;
         },
+        authToken : (state, action) => {
+            state.token = action.payload.token;
+        },
         authStore : (state, action) => {
             state.login = action.payload.login;
             state.register = action.payload.register;
@@ -78,5 +81,5 @@ const authSlice = createSlice({
     }
 })
 
-export const {authStore, authAccess, authBiodata, authLogout} = authSlice.actions;
+export const {authStore, authAccess, authToken, authBiodata, authLogout} = authSlice.actions;
 export default authSlice.reducer;
