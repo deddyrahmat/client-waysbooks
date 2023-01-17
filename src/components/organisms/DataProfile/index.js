@@ -141,7 +141,7 @@ function DataProfile() {
                     <div className="grid lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-16">
                         {purchaseBooks?.length > 0 &&
                             purchaseBooks?.map((book) => (
-                                <Books key={book.id} data={book} />
+                                <Books key={book.id} data={book} download={true} />
                             ))}
                     </div>
                 )}
