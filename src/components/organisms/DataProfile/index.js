@@ -44,7 +44,7 @@ function DataProfile() {
             <div className="container mx-auto px-10 pb-14">
                 <h6 className="font-bold text-4xl mb-6 font-tinos">Profile</h6>
                 {/* profile */}
-                <div className="rounded-lg bg-[#FFD9D9] h-full w-full p-10 flex flex-col lg:flex-row items-start justify-between">
+                <div className="rounded-lg bg-[#FFD9D9] h-full w-full p-10 flex flex-col lg:flex-row items-center justify-between">
                     <div className="w-full lg:w-10/12 mb-10 lg:mb-0">
                         <div className="flex space-x-3 items-center mb-5 lg:mb-10">
                             <MdMailOutline
@@ -60,11 +60,22 @@ function DataProfile() {
                             </div>
                         </div>
                         <div className="flex space-x-3 items-center mb-5 lg:mb-10">
-                            <MdMale
+                        {
+                            biodata.gender === 'male' ? (
+                                <MdMale
                                 size={35}
                                 className="hidden md:block"
                                 color="gray"
                             />
+                            ) : (
+                                <MdFemale
+                                size={35}
+                                className="hidden md:block"
+                                color="gray"
+                            />
+                            )
+                        }
+                            
                             <div className="flex flex-col">
                                 <p className="text-sm font-extrabold break-all">
                                     {biodata.gender ? biodata.gender : "- - -"}
@@ -103,7 +114,7 @@ function DataProfile() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full lg:w-2/12">
+                    <div className="w-full lg:w-3/12 grid content-between ">
                         {biodata.avatar ? (
                             <div className="w-full">
                                 <img
