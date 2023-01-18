@@ -40,7 +40,7 @@ const CardBook = memo(({ children, data, download }) => {
 
     return (
         <Buttons
-            href={`${statusAuth ? "books/" + data.slug : ""}`}
+            href={`${statusAuth ? "/books/" + data.slug : ""}`}
             onClick={() => conditonLogin()}
             type="link"
         >

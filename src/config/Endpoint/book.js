@@ -10,6 +10,10 @@ export default {
         axios
             .get(`/book?page=${page}&perPage=${perPage}`)
             .then((res) => res.data),
+    search: (page=1, perPage=5, keyword='') =>
+        axios
+            .get(`/book/search?page=${page}&perPage=${perPage}&keyword=${keyword}`)
+            .then((res) => res.data),
     bestSeller: () =>
         axios
             .get("/book/best-seller" )

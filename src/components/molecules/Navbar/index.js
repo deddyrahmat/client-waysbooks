@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdMenu, MdClose, MdShoppingCart, MdMoreVert } from "react-icons/md";
+import { MdMenu, MdClose, MdShoppingCart, MdMoreVert, MdMenuBook } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 // state global
@@ -92,21 +92,26 @@ function Navbar() {
                                         <MdMoreVert size={36} className="md:hidden mr-4 cursor-pointer z-40" onClick={() => toggleNav()} />
                                     </>
                                 ) : (
-                                    <Buttons className="relative mr-5 z-10 " href="/cart" type="link">
-                                        <MdShoppingCart size={36} className="cursor-pointer" />
-                                        {
-                                            cart.length > 0 && (
-                                                <div className="absolute top-[-10px] right-[-3px] h-5 w-5 flex justify-center items-center text-xs text-white bg-[#F13F3F] rounded-full">
-                                                    {cart.length}
-                                                </div>
-                                            )
-                                        }
-                                    </Buttons>
+                                    <>
+                                        <Buttons className="relative mr-5 z-10 " href="/books" type="link">
+                                            <MdMenuBook size={36} className="cursor-pointer" />
+                                        </Buttons>
+                                        <Buttons className="relative mr-5 z-10 " href="/cart" type="link">
+                                            <MdShoppingCart size={36} className="cursor-pointer" />
+                                            {
+                                                cart.length > 0 && (
+                                                    <div className="absolute top-[-10px] right-[-3px] h-5 w-5 flex justify-center items-center text-xs text-white bg-[#F13F3F] rounded-full">
+                                                        {cart.length}
+                                                    </div>
+                                                )
+                                            }
+                                        </Buttons>
+                                    </>
                                 )
                             }
                             <div className="relative z-10">
                                 <div className="h-11 w-11 overflow-hidden">
-                                    <img className="inline-block h-full w-full object-cover rounded-full ring-2 ring-white cursor-pointer focus:outline-none" src={biodata.avatar} alt="user" onClick={() => toggleDropdown()} />
+                                    <img className="inline-block h-full w-full object-cover rounded-full ring-2 ring-white cursor-pointer focus:outline-none" src={biodata.avatar ? biodata.avatar : '/assets/images/avatar.png'} alt="user" onClick={() => toggleDropdown()} />
                                 </div>
                                 <Dropdown funDropdown={funDropdown} toggleDropdown={toggleDropdown} />
                             </div>
