@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 // component
 import Buttons from "components/atoms/Buttons";
@@ -15,7 +16,15 @@ import MessageValidation from "utils/MessageValidation";
 // state global
 import { authStore } from "store/authSlice";
 
+// config
+import ApiAuth from "config/Endpoint/auth";
+import { toast } from "react-toastify";
+import LoadingAnimate from "components/atoms/LoadingAnimate";
+
 function Register() {
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
     const { register } = useSelector((state) => state.authReducer);
 
     const dispatch = useDispatch();
@@ -52,6 +61,42 @@ function Register() {
         fullname: "",
         confpassword : ""
     };
+
+    const handleSubmit = async (values) => {
+        const {email, password, fullname} = values;
+        setIsLoading(true);
+        try {
+            const body = JSON.stringify({
+                email,
+                password,
+                fullname
+            });
+            const config = {
+                headers: {
+                    "content-type": "application/json",
+                },
+            };
+            const response = await ApiAuth.register(body, config)
+            // console.log('response', response)
+            if (response.status === 1) {
+                setIsLoading(false);
+                toast.success("Register Success. Please Login")
+                dispatch(
+                    authStore({
+                        login: false,
+                        register: false,
+                    })
+                );
+                setTimeout(() => {
+                    window.location.reload()
+                }, 5000);
+            }    
+        } catch (error) {
+            console.log("Your System ", error)
+            setIsLoading(false)
+        }
+        
+    }
     // validation form
 
     // show password
@@ -84,9 +129,7 @@ function Register() {
                 <Formik
                     initialValues={initForm}
                     validationSchema={formValidation}
-                    onSubmit={(values) => {
-                        console.log(values);
-                    }}
+                    onSubmit={(values) => handleSubmit(values)}
                 >
                     {(formik) => {
                         return (
@@ -126,8 +169,8 @@ function Register() {
                             />
                             </div>
 
-                                <Buttons type="button" typeButton="submit" className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10">
-                                    Register
+                                <Buttons type="button" typeButton="submit" className={`mt-3 block border-2 border-[#393939] rounded py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white z-10 ${isLoading ? 'bg-slate-500 pointer-events-none' : 'bg-[#393939]'}`}>
+                                    {isLoading ? <LoadingAnimate /> : "Register"}
                                 </Buttons>
                             </Form>
                         );
