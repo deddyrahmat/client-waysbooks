@@ -25,9 +25,12 @@ import ApiAuth from 'config/Endpoint/auth'
 
 function App() {
     const dispatch = useDispatch();
-    const { refresh } = useSelector((state) => state.authReducer);
+    const { token, refresh } = useSelector((state) => state.authReducer);
     
     useEffect(() => {
+        if (token) {
+            setAuthToken(token);
+        }
         if (Cookies.get('statusToken') && refresh !== '') {
             const body = JSON.stringify({token : refresh});
                     
