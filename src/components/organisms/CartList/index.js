@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { rupiah } from "../../../utils/FormatCurrency";
 import { MdArrowBackIosNew } from "react-icons/md";
 
-import { cartStore, cartRemove } from "store/cartSlice";
+import {  cartRemove, cartReset } from "store/cartSlice";
 import Buttons from "components/atoms/Buttons";
 import Modal from "components/atoms/Modal";
 
 import ApiTransaction from 'config/Endpoint/transaction'
+import LoadingAnimate from './../../atoms/LoadingAnimate/index';
 
 function CartList() {
     const dispatch = useDispatch();
     const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSuccess = () => {
         setSuccess(!success);
@@ -60,6 +62,7 @@ function CartList() {
     // image book
     // ==============================================================
     const handlePayment = async () => {
+        setIsLoading(true);
         if (image.raw === "") {
         } else {
             try {
@@ -86,9 +89,12 @@ function CartList() {
                 const response = await ApiTransaction.upload( body, config);
                 if (response.status === 1) {
                     setSuccess(true);
+                    setIsLoading(false);
+                    dispatch(cartReset());
                 }
             } catch (error) {
                 console.log('Your System ', error)
+                setIsLoading(false)
             }
             
         }
@@ -229,8 +235,8 @@ function CartList() {
                                                 </Modal>
                                             </>
                                         )}
-                                        <Buttons onClick={() => handlePayment()} className="border-2 border-[#393939] bg-[#393939] rounded py-1.5 w-full min-w-[100px] text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white mt-5 ">
-                                            Pay
+                                        <Buttons onClick={() => handlePayment()} className={`border-2 border-[#393939] rounded py-1.5 w-full min-w-[100px] text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white mt-5 ${isLoading ? 'pointer-events-none bg-slate-500' : 'bg-[#393939]'}`}>
+                                            {isLoading ? (<LoadingAnimate />) : "Pay"}
                                         </Buttons>
                                     </div>
                                 </div>

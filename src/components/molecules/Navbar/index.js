@@ -27,7 +27,7 @@ function Navbar() {
         if (statusAuth && role === 'user') {
             setStatusNav(false);
         }
-    },[]);
+    },[statusAuth]);
 
     // ==========================
     // state show dropdown user login
