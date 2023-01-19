@@ -220,18 +220,27 @@ const ListTransaction = memo(() => {
             {
                 Header: "Action",
 
-                Cell: (tableProps) => (
-                    <div className="flex space-x-3 items-center">
-                        <div
-                            className="cursor-pointer"
-                            onClick={() => {
-                              handleAction(tableProps.row.original)
-                            }}
-                        >
-                            <MdArrowDropDown size={25} color="blue" />
-                        </div>
-                    </div>
-                ),
+                Cell: (tableProps) => {
+                    if (tableProps.row.original.status === 'pending') {
+                        return (
+                            <div className="flex space-x-3 items-center">
+                                <div
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                      handleAction(tableProps.row.original)
+                                    }}
+                                >
+                                    <MdArrowDropDown size={25} color="blue" />
+                                </div>
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <p> - - -</p>
+                        )
+                    } 
+                    
+                },
             },
         ],
         []
@@ -265,7 +274,7 @@ const ListTransaction = memo(() => {
                     <p className="text-lg font-semibold">Total : {valueAction?.total}</p>
                     <p className="text-lg font-semibold mt-3 mb-1">Buy : </p>
                     {dataBooksName.map((book, index) => (
-                        <p className="text-lg" key={index} >{book}</p>
+                        <p className="text-lg" key={index} > - {book}</p>
                     ))}
                     <p className="font-bold text-xl mt-10 mb-3"> Select status payment: </p>
                     <select name="" id="" className="py-3 px-3 bg-[#BCBCBC] bg-opacity-25 border-[#BCBCBC]  w-full block rounded text-black focus:outline-none focus:ring-1 focus:ring-slate-600" onChange={(e) => handleStatusPayment(e)}>
