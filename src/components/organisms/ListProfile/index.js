@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import ApiBooks from "config/Endpoint/book";
 import LoadingAnimate from "components/atoms/LoadingAnimate";
 
-function DataProfile() {
+function ListProfile() {
     const { biodata } = useSelector((state) => state.authReducer);
 
     const [purchaseBooks, setPurchaseBooks] = useState([]);
@@ -161,4 +161,4 @@ function DataProfile() {
     );
 }
 
-export default DataProfile;
+export default ListProfile;

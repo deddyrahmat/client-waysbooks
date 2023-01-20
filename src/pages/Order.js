@@ -2,16 +2,16 @@ import React from 'react'
 
 // component
 import Header from 'components/organisms/Header'
-import ListProfile from 'components/organisms/ListProfile'
+import ListOrder from 'components/organisms/ListOrder'
 
-function Profile() {
+function Order() {
 
   return (
     <>
         <Header />
-        <ListProfile />
+        <ListOrder />
     </>
   )
 }
 
-export default Profile
+export default Order
