@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Buttons from "components/atoms/Buttons";
 import Books from "components/molecules/Books";
 import {
@@ -19,14 +19,21 @@ function ListProfile() {
 
     const [purchaseBooks, setPurchaseBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    const handlePage = useCallback(() => {
+        setPage(page + 1)
+    },[page])
 
     const prosesListBooks = async () => {
         setIsLoading(true);
         try {
-            const response = await ApiBooks.purchased(1,10);
+            const response = await ApiBooks.purchased(page,5);
 
             if (response.status === 1) {
-                setPurchaseBooks(response.data);
+                setPurchaseBooks([...purchaseBooks,...response.data]);
+                setTotal(response.total_data);
                 setIsLoading(false);
             }
         } catch (error) {
@@ -37,8 +44,8 @@ function ListProfile() {
 
     useEffect(() => {
         prosesListBooks();
-    }, []);
-    // console.log("purchaseBooks", purchaseBooks);
+    }, [page]);
+
     return (
         <div className="mt-20">
             <div className="container mx-auto px-10 pb-14">
@@ -156,6 +163,15 @@ function ListProfile() {
                             ))}
                     </div>
                 )}
+                {
+                    purchaseBooks.length < total && (
+                        <Buttons onClick={() => {handlePage()}} isDisabled={isLoading} className={`mt-10 w-4/12 mx-auto block text-center flex-1 rounded text-white py-2 text-xl font-bold ${isLoading ? 'bg-slate-400 pointer-events-none' : 'border-2 border-[#393939] bg-[#393939] hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white'}`}>
+                            {
+                                isLoading ? (<LoadingAnimate />) : ("Load More")
+                            }
+                        </Buttons>
+                    ) 
+                }
             </div>
         </div>
     );
