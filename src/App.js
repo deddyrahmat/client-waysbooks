@@ -42,7 +42,7 @@ function App() {
             };
     
             ApiAuth.refresh( body, config).then((response) => {
-                console.log('response', response)
+                // console.log('response', response)
                 if (response.status === 1) {
                     dispatch(
                         authToken({

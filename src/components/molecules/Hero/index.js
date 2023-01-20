@@ -55,22 +55,54 @@ function Hero() {
     const { statusAuth } = useSelector((state) => state.authReducer);
     const dispatch = useDispatch();
 
-    const handleAddCart = (book) => {
-        if (statusAuth) {
-            dispatch(
-                cartStore({
-                    cart: {
-                        id: book.id,
-                        title: book.title,
-                        image: book.image,
-                        author: book.author,
-                        publication: book.publication,
-                        price: book.price,
-                    },
-                })
-            );
+    const [buy, setBuy] = useState(false);
 
-            setSuccess(true);
+    const handleBuy = () => {
+        setBuy(!buy);
+    };
+
+    const handleAddCart = async (book) => {
+        if (statusAuth) {
+            
+            setIsLoading(true);
+        try {
+            const response = await ApiBooks.bookUser();
+
+            if (response.status === 1) {
+                // setPaymentPending(response.data);
+                if (response.data.length > 0) {
+                    const bookPurchased = response.data.filter(
+                        (item) => item === book.id
+                    );
+                    // console.log("bookPurchased", bookPurchased);
+                    if (bookPurchased.length === 0) {
+                        dispatch(
+                            cartStore({
+                                cart: {
+                                    id: book.id,
+                                    title: book.title,
+                                    image: book.image,
+                                    author: book.author,
+                                    publication: book.publication,
+                                    price: book.price,
+                                },
+                            })
+                        );
+            
+                        setSuccess(true);
+                    } else {
+                        setBuy(true);
+                    }
+                }
+
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.log("Your System ", error);
+            setIsLoading(false);
+        }
+            
+            
         } else {
             dispatch(
                 authStore({
@@ -84,8 +116,13 @@ function Hero() {
     return (
         <>
             <Modal open={success} handleProps={() => handleSuccess()}>
-                <p className="text-2xl text-[#469F74]">
+                <p className="text-lg lg:text-2xl text-[#469F74]">
                     The product is successfully added to the cart
+                </p>
+            </Modal>
+            <Modal open={buy} handleProps={() => handleBuy()}>
+                <p className="text-lg lg:text-2xl text-amber-600">
+                    You have purchased this book
                 </p>
             </Modal>
 

@@ -23,7 +23,7 @@ function ListProfile() {
     const prosesListBooks = async () => {
         setIsLoading(true);
         try {
-            const response = await ApiBooks.purchased();
+            const response = await ApiBooks.purchased(1,10);
 
             if (response.status === 1) {
                 setPurchaseBooks(response.data);
