@@ -14,27 +14,47 @@ import Input from "components/atoms/Form/Input";
 
 // utils
 import MessageValidation from "utils/MessageValidation";
+import SearchBooks from "components/molecules/SearchBooks";
+import PageAllBooks from "components/molecules/PageAllBooks";
 
 function AllBooks() {
     const [dataBooks, setDataBooks] = useState([]);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+    const [pageSearch, setPageSearch] = useState(1);
     const [total, setTotal] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
+    const [totalSearch, setTotalSearch] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [dataBooksSearch, setDataBooksSearch] = useState([]);
+    const [isLoadingSearch, setIsLoadingSearch] = useState(false);
     const [statusSearch, setStatusSearch] = useState(false);
-    const [keyword, setKeyword] = useState('');
+    const [keyword, setKeyword] = useState("");
+    const [newSearch, setNewSearch] = useState(false);
 
-    const handleLimit = useCallback(() => {
-        setLimit(limit + 10);
-        // setPage(page + 1)
-    },[limit])
+    // function handle page for loadmore book
+    const handlePage = useCallback(() => {
+        setPage(page + 1);
+    }, [page]);
 
+    // function handle page for loadmore book result search
+    const handlePageSearch = useCallback(() => {
+        setPageSearch(pageSearch + 1);
+    }, [pageSearch]);
+
+    // get all bokk
     const prosesListBooks = async () => {
+        setIsLoading(true);
         try {
-            const response = await ApiBooks.list(page, limit);
+            
+            // jika status search aktif(true) maka kosong kan databooks sebelumnya, jadi nanti yang muncul databooks default di awal
+            if (statusSearch) {
+                setDataBooks([]);
+                setStatusSearch(false)
+            }
 
+            const response = await ApiBooks.list(page, 10);
+            
             if (response.status === 1) {
-                setDataBooks(response.data);
+                setDataBooks([...dataBooks, ...response.data]);
                 setTotal(response.total_data);
                 setIsLoading(false);
             }
@@ -45,12 +65,15 @@ function AllBooks() {
     };
 
     useEffect(() => {
+        // jika ada update di state dibawah
+        // cek statusSearch, jika true maka jalankan proses mencari book berdasarkan title
+        // jika false, jalankan books default
         if (statusSearch) {
             prosesSearch();
-        }else{
+        } else {
             prosesListBooks();
         }
-    }, [statusSearch, limit]);
+    }, [statusSearch, page, pageSearch, keyword]);
 
     // validation form
     const formValidation = Yup.object().shape({
@@ -62,24 +85,43 @@ function AllBooks() {
     };
 
     const prosesSearch = async () => {
+        setIsLoadingSearch(true);
         try {
-            const response = await ApiBooks.search(page, limit, keyword);
-
-            if (response.status === 1) {
-                setDataBooks(response.data);
-                setTotal(response.total_data);
-                setIsLoading(false);
+            // jika keyword ada value dan bukan string kosong
+            // jalankan function search berdasarkan keyword
+            if (keyword !== '') {
+                const response = await ApiBooks.search(pageSearch, 2, keyword);
+            
+                if (response.status === 1) {
+                    // jika state newSearch true, maka simpan data book hasil pencarian ke state kosong atau hasil pencarian baru
+                    // tapi jika false maka ini untuk fitur load more, dia akan menyimpan data baru tanpa menghapus data lama
+                    if (newSearch) {
+                        setDataBooksSearch(response.data)
+                        // setPageSearch(1)
+                    }else{
+                        setDataBooksSearch([...dataBooksSearch, ...response.data]);
+                    }
+                    setTotalSearch(response.total_data);
+                    setIsLoadingSearch(false);
+                    setNewSearch(false)
+                }
             }
+            // lalu ubah nilai page menjadi 1 agar nanti jika di load more book sebelumnya lebih dari satu akan di set default lagi jadi 1
+            setPage(1);
         } catch (error) {
             console.log("Your System ", error);
-            setIsLoading(false);
+            setIsLoadingSearch(false);
         }
-    }
-    const handleSubmit = async (values) => {
-        setStatusSearch(true)
-        setKeyword(values.keyword);
     };
-    // console.log('dataBooks', dataBooks)
+    
+    const handleSubmit = (values) => {
+        setPageSearch(1)
+        setKeyword("");
+        setStatusSearch(true);
+        setKeyword(values.keyword);
+        setNewSearch(true);
+        prosesSearch();
+    };
 
     return (
         <div className="mt-10">
@@ -121,33 +163,12 @@ function AllBooks() {
                         );
                     }}
                 </Formik>
-                <div className="grid lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-16 mt-10">
-                    {isLoading ? (
-                        <LoadingAnimate />
-                    ) : dataBooks?.length > 0 ? (
-                        dataBooks?.map((book) => (
-                            <Books key={book.id} data={book} />
-                        ))
-                    ) : (
-                        <div>
-                            <p className="text-red-900 text-xl font-bold block">
-                                Data Not Found
-                            </p>
-                            <Buttons className="mt-5 block border-2 border-[#393939] bg-[#393939] rounded py-2.5 w-4/12 text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white " onClick={() => prosesListBooks()}>
-                                <p>Back</p>
-                            </Buttons>
-                        </div>
-                    )}
-                </div>
-                {
-                    dataBooks.length < total && (
-                        <Buttons onClick={() => {handleLimit()}} isDisabled={isLoading} className={`mt-10 w-4/12 mx-auto block text-center flex-1 rounded text-white py-2 text-xl font-bold ${isLoading ? 'bg-slate-400 pointer-events-none' : 'border-2 border-[#393939] bg-[#393939] hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white'}`}>
-                            {
-                                isLoading ? (<LoadingAnimate />) : ("Load More")
-                            }
-                        </Buttons>
-                    ) 
-                }
+                
+                    {/* for data search */}
+                    {statusSearch ? (
+                        <SearchBooks dataBooksSearch={dataBooksSearch} isLoadingSearch={isLoadingSearch} totalSearch={totalSearch} handlePageSearch={handlePageSearch} prosesListBooks={prosesListBooks} />
+                    ) : <PageAllBooks dataBooks={dataBooks} isLoading={isLoading} total={total} handlePage={handlePage} />}
+                
             </div>
         </div>
     );

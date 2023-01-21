@@ -6,8 +6,8 @@ import errorHandler from './errorHandler';
 
 // create default baseurl axios
 const Axios = axios.create({
-    baseURL : "http://localhost:8000/api/v1"
-    // baseURL : "https://api-waysbooks.projectsdeddy.web.id/api/v1"
+    // baseURL : "http://localhost:8000/api/v1"
+    baseURL : "https://api-waysbooks.projectsdeddy.web.id/api/v1"
 })
 
 // saat axios menerima response, jika berhasil maka akan menampilkan response dan jika gagal akan eksekusi errorHandler

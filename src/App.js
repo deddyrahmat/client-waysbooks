@@ -16,7 +16,7 @@ import Transaction from 'pages/admin/Transaction';
 import Book from 'pages/admin/Book';
 import AddBook from "pages/admin/AddBook";
 import EditProfile from "pages/EditProfile";
-import Books from "pages/Books";
+import PageBooks from "pages/PageBooks";
 import Order from './pages/Order';
 
 // config
@@ -88,7 +88,7 @@ function App() {
                         path="/books"
                         element={
                             <ProtectedRoute >
-                                <Books />
+                                <PageBooks />
                             </ProtectedRoute>
                         }
                     />

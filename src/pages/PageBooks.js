@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react'
 import Header from 'components/organisms/Header'
 import AllBooks from 'components/organisms/AllBooks';
 
-function Books() {
+function PageBooks() {
   const [isLoading, setIsLoading] = useState(false);
   const [findBook,setFindBook] = useState([]);
 
@@ -16,4 +16,4 @@ function Books() {
   )
 }
 
-export default Books
+export default PageBooks
