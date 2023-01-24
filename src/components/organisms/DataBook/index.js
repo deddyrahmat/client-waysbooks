@@ -33,15 +33,19 @@ function DataBook({ data }) {
         // console.log("data", data);
         setIsLoading(true);
         try {
+            // cek api untuk melihat daftar buku yang telah di beli oleh user yang login
             const response = await ApiBook.bookUser();
 
             if (response.status === 1) {
                 // setPaymentPending(response.data);
+                // jika sudah ada buku yang dibeli user
+                // filter buku yang dipilih user dengan data buku yang ada di database
                 if (response.data.length > 0) {
                     const bookPurchased = response.data.filter(
                         (book) => book === data.id
                     );
                     // console.log("bookPurchased", bookPurchased);
+                    
                     if (bookPurchased.length === 0) {
                         dispatch(
                             cartStore({
@@ -60,6 +64,20 @@ function DataBook({ data }) {
                     } else {
                         setBuy(true);
                     }
+                }else {
+                    dispatch(
+                        cartStore({
+                            cart: {
+                                id: data.id,
+                                title: data.title,
+                                thumbnail: data.thumbnail,
+                                author: data.author,
+                                publication: data.publication,
+                                price: data.price,
+                            },
+                        })
+                    );
+                    setSuccess(true);
                 }
 
                 setIsLoading(false);
