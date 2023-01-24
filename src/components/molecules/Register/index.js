@@ -63,6 +63,7 @@ function Register() {
     };
 
     const handleSubmit = async (values) => {
+        
         const {email, password, fullname} = values;
         setIsLoading(true);
         try {
@@ -79,17 +80,20 @@ function Register() {
             const response = await ApiAuth.register(body, config)
             // console.log('response', response)
             if (response.status === 1) {
+                values.fullname ="";
+                values.email ="";
+                values.password ="";
+                values.confpassword ="";
+
                 setIsLoading(false);
                 toast.success("Register Success. Please Login")
                 dispatch(
                     authStore({
-                        login: false,
+                        login: true,
                         register: false,
                     })
                 );
-                setTimeout(() => {
-                    window.location.reload()
-                }, 5000);
+                
             }    
         } catch (error) {
             console.log("Your System ", error)

@@ -6,13 +6,13 @@ import ListBooks from 'components/organisms/ListBooks'
 import LoadingScreen from 'components/atoms/LoadingScreen';
 
 function LandingPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000);
-  },[]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false)
+  //   }, 1000);
+  // },[]);
   // console.log('dataBooks', dataBooks)
 
   return (
