@@ -84,7 +84,7 @@ function Hero() {
                                 cart: {
                                     id: book.id,
                                     title: book.title,
-                                    thumbnail: data.thumbnail,
+                                    thumbnail: book.thumbnail,
                                     author: book.author,
                                     publication: book.publication,
                                     price: book.price,
