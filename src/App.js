@@ -18,6 +18,7 @@ import AddBook from "pages/admin/AddBook";
 import EditProfile from "pages/EditProfile";
 import PageBooks from "pages/PageBooks";
 import Order from './pages/Order';
+import NotFound from "pages/NotFound";
 
 // config
 import { setAuthToken } from "config/Axios";
@@ -146,7 +147,7 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    {/* <Route path="*" element={ <NotFound />} /> */}
+                    <Route path="*" element={ <NotFound />} />
                 </Routes>
             </Router>
         </>
