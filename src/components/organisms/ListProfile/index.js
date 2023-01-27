@@ -23,16 +23,16 @@ function ListProfile() {
     const [total, setTotal] = useState(0);
 
     const handlePage = useCallback(() => {
-        setPage(page + 1)
-    },[page])
+        setPage(page + 1);
+    }, [page]);
 
     const prosesListBooks = async () => {
         setIsLoading(true);
         try {
-            const response = await ApiBooks.purchased(page,5);
+            const response = await ApiBooks.purchased(page, 5);
 
             if (response.status === 1) {
-                setPurchaseBooks([...purchaseBooks,...response.data]);
+                setPurchaseBooks([...purchaseBooks, ...response.data]);
                 setTotal(response.total_data);
                 setIsLoading(false);
             }
@@ -67,22 +67,20 @@ function ListProfile() {
                             </div>
                         </div>
                         <div className="flex space-x-3 items-center mb-5 lg:mb-10">
-                        {
-                            biodata.gender === 'male' ? (
+                            {biodata.gender === "male" ? (
                                 <MdMale
-                                size={35}
-                                className="hidden md:block"
-                                color="gray"
-                            />
+                                    size={35}
+                                    className="hidden md:block"
+                                    color="gray"
+                                />
                             ) : (
                                 <MdFemale
-                                size={35}
-                                className="hidden md:block"
-                                color="gray"
-                            />
-                            )
-                        }
-                            
+                                    size={35}
+                                    className="hidden md:block"
+                                    color="gray"
+                                />
+                            )}
+
                             <div className="flex flex-col">
                                 <p className="text-sm font-extrabold break-all">
                                     {biodata.gender ? biodata.gender : "- - -"}
@@ -153,25 +151,28 @@ function ListProfile() {
                 <h6 className="font-bold text-4xl mb-6 font-tinos mt-20">
                     My Books
                 </h6>
-                {isLoading ? (
-                    <LoadingAnimate />
-                ) : (
-                    <div className="grid lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-16">
-                        {purchaseBooks?.length > 0 &&
-                            purchaseBooks?.map((book) => (
-                                <Books key={book.id} data={book} download={true} />
-                            ))}
-                    </div>
+                <div className="grid lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-16">
+                    {purchaseBooks?.length > 0 &&
+                        purchaseBooks?.map((book) => (
+                            <Books key={book.id} data={book} download={true} />
+                        ))}
+                </div>
+                {isLoading && <LoadingAnimate />}
+                {purchaseBooks.length < total && (
+                    <Buttons
+                        onClick={() => {
+                            handlePage();
+                        }}
+                        isDisabled={isLoading}
+                        className={`mt-10 w-4/12 mx-auto block text-center flex-1 rounded text-white py-2 text-xl font-bold ${
+                            isLoading
+                                ? "bg-slate-400 pointer-events-none"
+                                : "border-2 border-[#393939] bg-[#393939] hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white"
+                        }`}
+                    >
+                        {isLoading ? <LoadingAnimate /> : "Load More"}
+                    </Buttons>
                 )}
-                {
-                    purchaseBooks.length < total && (
-                        <Buttons onClick={() => {handlePage()}} isDisabled={isLoading} className={`mt-10 w-4/12 mx-auto block text-center flex-1 rounded text-white py-2 text-xl font-bold ${isLoading ? 'bg-slate-400 pointer-events-none' : 'border-2 border-[#393939] bg-[#393939] hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white'}`}>
-                            {
-                                isLoading ? (<LoadingAnimate />) : ("Load More")
-                            }
-                        </Buttons>
-                    ) 
-                }
             </div>
         </div>
     );
