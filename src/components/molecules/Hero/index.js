@@ -63,64 +63,62 @@ function Hero() {
 
     const handleAddCart = async (book) => {
         if (statusAuth) {
-            
             setIsLoading(true);
-        try {
-            // cek api untuk melihat daftar buku yang telah di beli oleh user yang login
-            const response = await ApiBooks.bookUser();
-            // console.log('response', response)
+            // info : buku yang sudah tersimpan di cart, dia tidak akan nambah lagi tapi tetap ada status sukses
+            try {
+                // cek api untuk melihat daftar buku yang telah di beli oleh user yang login
+                const response = await ApiBooks.bookUser();
+                // console.log('response', response)
 
-            if (response.status === 1) {
-                // jika sudah ada buku yang dibeli user
-                // filter buku yang dipilih user dengan data buku yang ada di database
-                if (response.data.length > 0) {
-                    const bookPurchased = response.data.filter(
-                        (item) => item === book.id
-                    );
-                    // console.log("bookPurchased", bookPurchased);
-                    if (bookPurchased.length === 0) {
+                if (response.status === 1) {
+                    // jika sudah ada buku yang dibeli user
+                    // filter buku yang dipilih user dengan data buku yang ada di database
+                    if (response.data.length > 0) {
+                        const bookPurchased = response.data.filter(
+                            (item) => item === book.id
+                        );
+                        // console.log("bookPurchased", bookPurchased);
+                        if (bookPurchased.length === 0) {
+                            dispatch(
+                                cartStore({
+                                    cart: {
+                                        id: book.id,
+                                        title: book.title,
+                                        thumbnail: book.thumbnail,
+                                        author: book.author,
+                                        publication: book.publication,
+                                        price: book.price,
+                                    },
+                                })
+                            );
+
+                            setSuccess(true);
+                        } else {
+                            setBuy(true);
+                        }
+                    } else {
                         dispatch(
                             cartStore({
                                 cart: {
                                     id: book.id,
                                     title: book.title,
-                                    thumbnail: book.thumbnail,
+                                    image: book.image,
                                     author: book.author,
                                     publication: book.publication,
                                     price: book.price,
                                 },
                             })
                         );
-            
-                        setSuccess(true);
-                    } else {
-                        setBuy(true);
-                    }
-                }else{
-                    dispatch(
-                        cartStore({
-                            cart: {
-                                id: book.id,
-                                title: book.title,
-                                image: book.image,
-                                author: book.author,
-                                publication: book.publication,
-                                price: book.price,
-                            },
-                        })
-                    );
-        
-                    setSuccess(true);
-                }
 
+                        setSuccess(true);
+                    }
+
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                console.log("Your System ", error);
                 setIsLoading(false);
             }
-        } catch (error) {
-            console.log("Your System ", error);
-            setIsLoading(false);
-        }
-            
-            
         } else {
             dispatch(
                 authStore({
@@ -194,7 +192,9 @@ function Hero() {
                                         </p>
                                         <Buttons
                                             className="mt-3 block border-2 border-[#393939] bg-[#393939] rounded-sm py-1.5 w-full text-center text-white hover:text-black hover:bg-white active:bg-white focus:outline-none focus:ring focus:ring-white"
-                                            onClick={() => handleAddCart(book?.book)}
+                                            onClick={() =>
+                                                handleAddCart(book?.book)
+                                            }
                                         >
                                             Add To Cart
                                         </Buttons>

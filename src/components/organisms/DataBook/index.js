@@ -32,6 +32,7 @@ function DataBook({ data }) {
     const handleAddCart = async () => {
         // console.log("data", data);
         setIsLoading(true);
+        // info : buku yang sudah tersimpan di cart, dia tidak akan nambah lagi tapi tetap ada status sukses
         try {
             // cek api untuk melihat daftar buku yang telah di beli oleh user yang login
             const response = await ApiBook.bookUser();
@@ -45,7 +46,7 @@ function DataBook({ data }) {
                         (book) => book === data.id
                     );
                     // console.log("bookPurchased", bookPurchased);
-                    
+
                     if (bookPurchased.length === 0) {
                         dispatch(
                             cartStore({
@@ -64,7 +65,7 @@ function DataBook({ data }) {
                     } else {
                         setBuy(true);
                     }
-                }else {
+                } else {
                     dispatch(
                         cartStore({
                             cart: {
