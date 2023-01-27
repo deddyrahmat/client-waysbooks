@@ -8,9 +8,7 @@ function PageAllBooks({ dataBooks, isLoading, total, handlePage }) {
     return (
         <>
             <div className="grid lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-16 mt-10">
-                {isLoading ? (
-                    <LoadingAnimate />
-                ) : dataBooks?.length > 0 ? (
+                {dataBooks?.length > 0 ? (
                     dataBooks?.map((book, index) => (
                         <Books key={`list-book-${book.id}-${index}`} data={book} />
                     ))
@@ -22,6 +20,11 @@ function PageAllBooks({ dataBooks, isLoading, total, handlePage }) {
                     </div>
                 )}
             </div>
+            {
+                isLoading && (
+                    <LoadingAnimate />
+                )
+            }
             {dataBooks.length < total && (
                 <Buttons
                     onClick={() => {
